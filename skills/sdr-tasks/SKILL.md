@@ -5,8 +5,8 @@ description: >
   Trigger: When the orchestrator launches you to create or update the launch planning and GTM strategy for a project.
 license: MIT
 metadata:
-  author: gentleman-programming
-  version: "1.0"
+  author: JoeSagera
+  version: "1.1"
 ---
 
 ## Purpose
@@ -62,6 +62,37 @@ openspec/projects/{project-name}/
 
 ```markdown
 # Launch Plan: {Project Title}
+
+## 0. Task Sizing & Vertical Slicing
+
+**Slicing Rule**: Build one complete feature path at a time, NOT all backend then all frontend.
+
+**Bad (horizontal)**: Task 1: Build entire database schema. Task 2: Build all API endpoints. Task 3: Build all UI.
+**Good (vertical)**: Task 1: User can create an account (schema + API + UI + test). Task 2: User can log in.
+
+### Task Sizing Guidelines
+
+| Size | Files | Scope | Example | Max per plan |
+|------|-------|-------|---------|-------------|
+| **XS** | 1 | Single function or config change | Add validation rule | Unlimited |
+| **S** | 1-2 | One component or endpoint | Add new API endpoint | Unlimited |
+| **M** | 3-5 | One feature slice | User registration flow | ≤10 |
+| **L** | 5-8 | Multi-component feature | Search with filtering | ≤3 |
+| **XL** | 8+ | Too large — break down before including | — | **0** |
+
+**Rule**: Every task >L (8+ files) MUST be broken into smaller tasks before the plan is complete. Agents perform best on S and M tasks.
+
+### Checkpoints
+
+Insert a checkpoint after every 2-3 tasks:
+
+```markdown
+## Checkpoint: After Tasks 1-3
+- [ ] All tests pass
+- [ ] Application builds without errors
+- [ ] Core user flow works end-to-end
+- [ ] Review with human before proceeding
+```
 
 ## 1. Launch Checklist
 
@@ -272,4 +303,8 @@ Ready for execution (implementation) or pivot review.
 - **Unit economics MUST include benchmarks** — state what "good" looks like for the industry
 - **Decision gate is MANDATORY** — if runway or capital is insufficient, say so clearly and recommend next steps (raise, bootstrap, reduce scope)
 - **Size budget**: Artifact MUST be under 800 words. Use tables over prose. Summarize rationale in 1-2 lines per section.
+- **Single PR Rule**: The complete plan MUST fit in a single pull request on a dedicated branch. If it doesn't fit, suggest splitting into multiple plans (one per PR).
+- **Vertical slicing MANDATORY**: Each task must deliver working, testable functionality end-to-end. No "build all backend, then all frontend" plans.
+- **Fresh subagent per task**: Document that each task in the plan MUST be executed by a fresh sub-agent. Do NOT execute the entire plan in a single context.
+- **Stop conditions**: Define explicit stop triggers (e.g., "If CAC > target after Week 4 → STOP and re-evaluate channel").
 - Return envelope per **Section D** from `skills/_shared/sdd-phase-common.md`.

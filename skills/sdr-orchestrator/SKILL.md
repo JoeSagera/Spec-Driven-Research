@@ -6,8 +6,8 @@ description: >
   decision gates between research phases. Does NOT execute research directly.
 license: MIT
 metadata:
-  author: gentleman-programming
-  version: "1.0"
+  author: JoeSagera
+  version: "1.1"
 tools:
   - delegate
   - mem_session_start
@@ -128,17 +128,24 @@ Save the answer in Engram under `sdr/{project}/config`.
 
 ## Model Assignments
 
-Per-phase model routing. The orchestrator specifies which model each sub-agent should use via the launch prompt:
+Per-phase model routing. The orchestrator specifies which model each sub-agent should use via the launch prompt.
 
-| Phase | Recommended Model | Reason |
-|-------|-------------------|--------|
-| **orchestrator** (you) | opus | Complex routing, gating decisions, recovery |
-| **sdr-explore** | sonnet | Fast codebase/domain scanning |
-| **sdr-propose** | opus | Strategic scope decisions, risk assessment |
-| **sdr-spec** | sonnet | Structured requirement writing |
-| **sdr-design** | opus | Architecture decisions, trade-off analysis |
-| **sdr-tasks** | sonnet | Concrete, actionable breakdown |
-| **sdr-verify** | sonnet | Pattern matching, checklist validation |
+**Default assignments:**
+
+| Phase | Default Model | Override Condition | Override Model |
+|-------|--------------|-------------------|----------------|
+| **orchestrator** (you) | opus | — | — |
+| **sdr-explore** | sonnet | >10 competitors to analyze OR hypothesis spans multiple markets | opus |
+| **sdr-propose** | opus | — | — |
+| **sdr-spec** | sonnet | >20 user stories OR complex multi-system feature | opus |
+| **sdr-design** | opus | Simple CRUD app with known patterns | sonnet |
+| **sdr-tasks** | sonnet | Plan spans >20 tasks OR cross-team coordination needed | opus |
+| **sdr-verify** | sonnet | >3 CRITICAL flags found OR complex multi-phase audit | opus |
+
+**Model selection principles:**
+- **Cheap/fast model**: Mechanical tasks, template-based work, 1-2 files (e.g., writing standard user stories, simple checklist validation)
+- **Standard model**: Integration tasks, judgment calls, 3-5 files (e.g., competitive analysis, feature prioritization)
+- **Capable model**: Architecture decisions, broad codebase understanding, >5 files or high-stakes validation (e.g., strategic scope decisions, multi-system design, complex risk assessment)
 
 The orchestrator itself MUST use `opus` or equivalent for state management and decision gates.
 
@@ -184,7 +191,20 @@ Run {phase} for project "{project-name}".
 Return the Result Contract envelope (see your SKILL.md Section D).
 ```
 
+### Fresh Subagent Rule (MANDATORY)
+
+Construct the sub-agent's context from scratch. Do NOT pass:
+- Conversation history from this session
+- Previous agent outputs or reasoning
+- Session state or accumulated context
+
+The orchestrator provides exactly what the sub-agent needs: pre-injected rules, input artifact references, and the task description. This preserves the orchestrator's context for coordination and prevents context pollution.
+
 **Why pre-inject**: Avoids sub-agents re-reading SKILL.md files, reduces token burn, and guarantees consistency.
+
+### Do NOT Load Skills Yourself
+
+Sub-agents MUST NOT load skills via the `skill` tool or re-read SKILL.md files. The orchestrator injects all necessary rules. If a sub-agent reports `skill_resolution: fallback-*`, the orchestrator MUST re-read the skill registry and re-launch with corrected rules.
 
 ---
 
@@ -274,9 +294,29 @@ Every phase sub-agent MUST return this structured envelope to the orchestrator:
 
 ---
 
+## Two-Stage Review Gate
+
+Before evaluating the `decision_gate` from the sub-agent, the orchestrator MUST run a compliance review:
+
+**Stage 1: Spec Compliance Review**
+- Read the artifact produced by the sub-agent
+- Verify it follows the expected structure (check key sections exist)
+- Verify no placeholder text ([TBD], [TODO], "fill in", "appropriate") is present
+- Verify acceptance criteria / success criteria are present where required
+- If Stage 1 FAILS: Do NOT evaluate decision_gate. Return ADJUST with feedback: "Artifact structure incomplete — missing X, contains placeholders Y."
+
+**Stage 2: Business Decision (GO/ADJUST/NO-GO)**
+- Only proceed to Stage 2 if Stage 1 passes
+- Evaluate the sub-agent's `decision_gate` recommendation
+- Apply orchestrator judgment based on project context, known constraints, and risk tolerance
+
+**Why two stages**: Prevents approving artifacts that look correct at a glance but lack critical content. Stage 1 is mechanical; Stage 2 is judgment.
+
+---
+
 ## Decision Gate Protocol
 
-After EACH phase completes, the orchestrator evaluates the `decision_gate` field from the sub-agent's Result Contract and takes action:
+After EACH phase completes (and Stage 1 passes), the orchestrator evaluates the `decision_gate` field from the sub-agent's Result Contract and takes action:
 
 ### GO → Proceed
 

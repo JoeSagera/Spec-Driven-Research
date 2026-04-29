@@ -5,8 +5,8 @@ description: >
   Trigger: When the orchestrator launches you to investigate a market opportunity, analyze competitors, validate a business hypothesis, or gather intelligence before product definition.
 license: MIT
 metadata:
-  author: gentleman-programming
-  version: "1.0"
+  author: JoeSagera
+  version: "1.1"
   tools:
     - Read
     - Grep
@@ -63,7 +63,36 @@ Before collecting data, clarify:
 
 If the hypothesis is too vague, STOP and ask for clarification. Do NOT proceed with "market research" without a falsifiable claim.
 
-### Step 3: Execute the Four Research Pillars
+### Step 2b: Surface Your Assumptions
+
+<BEFORE running any pillar research, list what you are assuming. Do NOT silently fill in ambiguous requirements — assumptions are the most dangerous form of misunderstanding.>
+
+```
+ASSUMPTIONS I'M MAKING:
+1. [Business model assumption, e.g. "This is a B2B SaaS, not B2C"]
+2. [Buyer assumption, e.g. "The target buyer is a CTO with budget authority, not a developer"]
+3. [Pricing assumption, e.g. "Pricing is subscription-based (not usage-based)"]
+4. [Market assumption, e.g. "The market is US-first, English-speaking"]
+5. [Tech assumption, e.g. "The solution requires cloud infrastructure"]
+→ Correct me now or I'll proceed with these.
+```
+
+List at least 3 assumptions. Flag any that you cannot justify with existing project context or prior exploration. Unjustified assumptions must be marked [UNVERIFIED].
+
+### Step 3: Source Citation Hierarchy
+
+For ALL research, use this source authority ranking. Mark each citation with its tier:
+
+| Priority | Tier | Examples |
+|----------|------|----------|
+| 1 | [OFFICIAL] | Industry reports (Gartner, Statista), government data, company filings |
+| 2 | [SECONDARY] | Reputable news, analyst blogs, verified social data |
+| 3 | [STANDARD] | Web standards, academic papers, open data |
+| — | [UNVERIFIED] | Stack Overflow, unverified blogs, AI summaries — use only if no higher tier exists, and flag as tentative |
+
+**Rule**: If a key claim (TAM, competitor feature, pricing) relies solely on [UNVERIFIED] sources, flag it explicitly in the report.
+
+### Step 4: Execute the Four Research Pillars
 
 ```
 INVESTIGATE:
@@ -72,6 +101,8 @@ INVESTIGATE:
 ├── PILLAR C: Consumer Behavior (JTBD + Persona Signals)
 └── PILLAR D: Trend & Timing (Macro + Technology + Regulatory)
 ```
+
+**Time-boxing rule**: If you have 80% confidence in the hypothesis after investigating 3 authoritative sources per pillar, STOP. If <80% confidence after 5 sources, flag as **MORE_DATA** and escalate to the orchestrator.
 
 ---
 
@@ -157,7 +188,7 @@ INVESTIGATE:
 - Rate: `Too Early` / `Perfect` / `Too Late` / `Unclear`
 - Justify with evidence, not opinion.
 
-### Step 4: Synthesize & Persist Artifact
+### Step 5: Synthesize & Persist Artifact
 
 Follow **Section C** from `skills/_shared/sdd-phase-common.md`.
 - artifact: `explore`
@@ -166,7 +197,7 @@ Follow **Section C** from `skills/_shared/sdd-phase-common.md`.
 
 **This step is MANDATORY — do NOT skip it.**
 
-### Step 5: Return Structured Analysis
+### Step 6: Return Structured Analysis
 
 Return EXACTLY this format to the orchestrator:
 

@@ -7,8 +7,8 @@ description: >
   technical product specification (PRD, user stories, acceptance criteria, roadmap).
 license: MIT
 metadata:
-  author: gentleman-programming
-  version: "1.0"
+  author: JoeSagera
+  version: "1.1"
 ---
 
 ## Purpose
@@ -61,6 +61,22 @@ Extract and categorize from the proposal:
 | Market / Business | Success metrics, KPIs, revenue model, timeline |
 | Constraints | Budget, compliance, technical limits, team capacity |
 
+### Step 3b: Reframe Vague Requirements into Concrete Success Criteria
+
+For EVERY requirement from the proposal that is qualitative or vague, reframe it into testable, measurable conditions BEFORE writing user stories.
+
+```
+REQUIREMENT: "Make onboarding faster"
+
+REFRAMED SUCCESS CRITERIA:
+- Time-to-first-value (TTFV) < 5 minutes for new users
+- Onboarding completion rate > 70% within 24 hours
+- Support tickets related to onboarding < 5% of total tickets
+→ Are these the right targets?
+```
+
+**Rule**: If you cannot write at least one concrete success criterion with a numeric threshold for a requirement, flag it as [NEEDS CLARIFICATION] and escalate to the orchestrator. Do NOT write user stories for vague requirements.
+
 ### Step 4: Write the Product Specification (PRD)
 
 Create a complete, self-contained PRD. Structure:
@@ -93,6 +109,8 @@ Create a complete, self-contained PRD. Structure:
 - **WHEN** {user action or system event}
 - **THEN** {expected outcome}
 - **AND** {additional outcome, if any}
+
+**Exhaustiveness Rule**: For every MUST feature, write at LEAST 10 user stories covering: happy paths, edge cases, error states, administrative flows, and cross-feature interactions. If you cannot list 10 distinct stories, the feature is not well-understood — flag it as [NEEDS CLARIFICATION].
 
 Include at minimum:
 - One happy-path scenario per story
@@ -147,7 +165,33 @@ The system {MUST/SHALL/SHOULD} {specific behavior}.
 - **Scalability**: {user growth, data growth projections}
 - **Accessibility**: {WCAG level, inclusive design requirements}
 
-## 7. Roadmap (Now / Next / Later)
+## 7. SDR Boundaries
+
+Three-tier boundary system for the implementation agent:
+
+- **Always do**: {what the implementer must always do — e.g. "Run tests before commits, follow naming conventions, validate inputs"}
+- **Ask first**: {what requires orchestrator approval — e.g. "Database schema changes, adding dependencies, changing CI config"}
+- **Never do**: {what is out of scope or forbidden — e.g. "Commit secrets, edit vendor directories, remove failing tests without approval"}
+
+These boundaries prevent scope drift and architectural decisions being taken by implementation agents.
+
+## 8. Implementation Decisions
+
+Documented architectural decisions made during specification. Do NOT include specific file paths or code snippets — they may become outdated quickly.
+
+- **Modules to build/modify**: {high-level module names and responsibilities}
+- **Interfaces**: {API contracts, data schemas, communication patterns}
+- **Schema changes**: {database or data model changes}
+- **Specific interactions**: {key user flows, system interactions}
+
+## 9. Testing Decisions
+
+- **Testing philosophy**: {TDD first? Integration-first? Mock external services?}
+- **What makes a good test**: {only test external behavior, not implementation details}
+- **Modules to test**: {which modules from Implementation Decisions need tests}
+- **Prior art**: {reference existing test patterns in the codebase}
+
+## 10. Roadmap (Now / Next / Later)
 
 ### Now (MVP — 0-4 weeks)
 - {Feature} — {outcome}
@@ -161,7 +205,7 @@ The system {MUST/SHALL/SHOULD} {specific behavior}.
 - {Feature} — {outcome}
 - {Feature} — {outcome}
 
-## 8. Anti-Scope (Out of Scope / Explicitly Excluded)
+## 11. Anti-Scope (Out of Scope / Explicitly Excluded)
 
 | Exclusion | Reason | Future Consideration |
 |-----------|--------|----------------------|
@@ -169,7 +213,7 @@ The system {MUST/SHALL/SHOULD} {specific behavior}.
 
 - Be EXPLICIT about what is NOT included. This prevents scope creep and aligns stakeholder expectations.
 
-## 9. Success Metrics & KPIs
+## 12. Success Metrics & KPIs
 
 | Metric | Target | Measurement Method | Owner |
 |--------|--------|-------------------|-------|
@@ -181,7 +225,7 @@ Categories to cover:
 - **Business**: {revenue, cost savings, efficiency gains}
 - **Quality**: {error rate, support tickets, uptime}
 
-## 10. Decision Gate: Buildability Assessment
+## 13. Decision Gate: Buildability Assessment
 
 ### Resource Checklist
 - [ ] **Team Capacity**: Do we have the skills (frontend, backend, design, QA) to build this?

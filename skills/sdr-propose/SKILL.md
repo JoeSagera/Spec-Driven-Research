@@ -19,8 +19,8 @@ tools:
   - edit
 license: MIT
 metadata:
-  author: 1manstartup
-  version: "1.0"
+  author: JoeSagera
+  version: "1.1"
   sdr_phase: 2
   sdr_name: "Business Proposal"
   predecessor: "sdr-explore"
@@ -39,6 +39,16 @@ the findings from `sdr/{project}/explore` into a coherent business narrative tha
 3. **Why now** — what market dynamics make timing favorable?
 4. **How** do we win — what is the UVP and moat?
 5. **What** is the unfair advantage we possess or can build?
+
+### Anti-Patterns: Why Teams Skip Research
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "This market is obvious, I don't need research" | Obvious markets are crowded — research finds the non-obvious opportunity |
+| "I'll write the proposal after we build it" | That's a pitch deck, not a proposal. The proposal's value is forcing clarity BEFORE code |
+| "Research will slow us down" | A 30-minute proposal prevents weeks of rework and pivoting |
+| "The user knows what they want" | Even clear requests have implicit assumptions — the proposal surfaces those |
+| "We'll figure out monetization later" | Without a viable path to first $10K, this is a hobby, not a business |
 
 ## What You Receive
 
@@ -129,16 +139,29 @@ can read it and know what to build, sell, or measure.
 - Before / after contrast (what life looks like with vs. without your solution)
 - High-concept pitch: "X for Y" or "Like [known thing], but [differentiator]"
 - **UVP Strength Check** (self-score 1-5):
-  - Specific? (not "better" or "faster" — by how much?)
-  - Provable? (can a customer verify the claim in <1 day?)
-  - Different? (not claimed by any competitor?)
-  - Valuable? (does the customer pay for THIS outcome?)
-  - Memorable? (can the customer repeat it to their boss?)
+  - **Specific?** (not "better" or "faster" — by how much? Include a numeric threshold)
+  - **Provable?** (can a customer verify the claim in <1 day?)
+  - **Different?** (not claimed by any competitor?)
+  - **Valuable?** (does the customer pay for THIS outcome?)
+  - **Memorable?** (can the customer repeat it to their boss?)
+  - **Measurable?** (can we instrument and track this claim in production?)
+
+**UVP Measurability Rule**: Every UVP claim MUST include "BY [percentage/time]" and "MEASURED BY [metric/instrument]". 
+
+Bad: "Reduce onboarding time"
+Good: "Reduce onboarding from 5 days to 2 hours (60% reduction), measured by time-to-first-value in product analytics"
 
 #### 4. Solution (High-Level)
 - Solution hypothesis mapped 1:1 to the top 3 problems
 - Keep at "capability" level, not "feature list" level
 - Flag which solutions are validated vs. assumed
+
+**Deep Module Evaluation**: For each proposed solution module, assess its "depth":
+- **Deep module**: Encapsulates a lot of functionality in a simple, testable interface that rarely changes. Score: +2
+- **Shallow module**: Simple functionality with complex interface, or complex functionality exposed directly. Score: -1
+- **Leaky module**: Functionality scattered across multiple modules with unclear boundaries. Score: -2
+
+**Rule**: The solution should have ≥60% deep modules. If <60%, the architecture may produce brittle, hard-to-maintain code.
 
 #### 5. Unfair Advantage / Moat
 - **Existing assets**: proprietary data, exclusive partnerships, founder expertise, community access, regulatory license

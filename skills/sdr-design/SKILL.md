@@ -8,8 +8,8 @@ description: >
   Trigger: When the orchestrator launches you to write or update the technical design for a project.
 license: MIT
 metadata:
-  author: gentleman-programming
-  version: "1.0"
+  author: JoeSagera
+  version: "1.1"
 ---
 
 ## Purpose
@@ -50,6 +50,17 @@ Before designing, read the actual code that will be affected:
 - Infrastructure and deployment setup
 - Test infrastructure (if any)
 
+### Step 2b: Design System Extraction (Brownfield Projects)
+
+If the project has existing code (>10 source files), audit the current design system before proposing changes:
+
+- **Design tokens**: Colors, typography, spacing, breakpoints currently in use
+- **Component library**: Names, props, usage patterns of existing components
+- **Established patterns**: Form handling, error states, loading states, navigation
+- **Design debt**: Inconsistencies, deprecated patterns, mixed conventions
+
+**Rule**: If design debt is found, include a "Design Debt Cleanup" task in the design.md. Do NOT add new patterns on top of inconsistent foundations.
+
 ### Step 3: Write design.md
 
 **IF mode is `openspec` or `hybrid`:** Create the design document:
@@ -83,16 +94,28 @@ openspec/projects/{project}/
 
 ### Component Diagram
 
-{ASCII diagram showing major components and their relationships}
+Use Mermaid for architecture diagrams (preferred) or ASCII for simple ones:
 
-    ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-    │   Client    │────▶│    API      │────▶│  Services   │
-    └─────────────┘     └─────────────┘     └─────────────┘
-                               │                    │
-                               ▼                    ▼
-                         ┌─────────────┐     ┌─────────────┐
-                         │   Cache     │     │   Store     │
-                         └─────────────┘     └─────────────┘
+```mermaid
+graph TD
+    Client --> API
+    API --> Services
+    API --> Cache
+    Services --> Store
+```
+
+### Design Taste Checklist
+
+Before finalizing the design, verify these principles:
+
+- [ ] **Hierarchy**: The most important information is the most prominent
+- [ ] **Whitespace**: Elements are not cramped; breathing room between components
+- [ ] **Consistency**: Patterns repeat predictably across the system
+- [ ] **Accessibility**: Design meets WCAG 2.1 AA minimum (color contrast, keyboard nav, screen reader support)
+- [ ] **Responsiveness**: Designed mobile-first; breakpoints are intentional, not arbitrary
+- [ ] **Isolation**: Each component can be understood without reading its internals
+
+**Rule**: If any checklist item fails, the design is CONDITIONAL until the issue is resolved.
 
 ### Component Descriptions
 
@@ -258,6 +281,24 @@ interface Resource {
 ## Migration / Rollout Plan
 
 {If this requires phased rollout, feature flags, or data migration, describe the plan.}
+
+## Tech Stack Artifact
+
+Produce or update a persistent `tech-stack.md` in the project root (or `docs/`):
+
+```markdown
+# Tech Stack: {Project Name}
+
+| Layer | Choice | Version | Rationale | Decision Date |
+|-------|--------|---------|-----------|---------------|
+| Frontend | {Tech} | {Version} | {Why} | {YYYY-MM-DD} |
+| Backend | {Tech} | {Version} | {Why} | {YYYY-MM-DD} |
+| Database | {Tech} | {Version} | {Why} | {YYYY-MM-DD} |
+| Cache | {Tech} | {Version} | {Why} | {YYYY-MM-DD} |
+| Infra | {Tech} | {Version} | {Why} | {YYYY-MM-DD} |
+```
+
+**Rule**: Every technology choice in this design MUST be recorded in `tech-stack.md` with version and rationale. Future design changes MUST check this file before adding new dependencies.
 
 ## Decision Gate
 
