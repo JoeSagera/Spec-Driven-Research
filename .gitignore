@@ -1,4 +1,5 @@
 .gga
+.atl/
 
 # Local research experiments and external knowledge dumps are not tracked
 research/*

@@ -1,0 +1,85 @@
+{
+  "sdr-orchestrator": {
+    "description": "SDR Orchestrator - coordinates research phases",
+    "mode": "primary",
+    "model": "openai/gpt-5.5",
+    "prompt": "{file:~/.config/opencode/prompts/sdr/sdr-orchestrator.md}",
+    "permission": {
+      "task": {
+        "*": "deny",
+        "sdr-init": "allow",
+        "sdr-explore": "allow",
+        "sdr-propose": "allow",
+        "sdr-spec": "allow",
+        "sdr-design": "allow",
+        "sdr-tasks": "allow",
+        "sdr-verify": "allow",
+        "sdr-source-of-truth": "allow"
+      }
+    }
+  },
+  "sdr-init": {
+    "description": "SDR founder intake and setup",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "openai/gpt-5.5",
+    "prompt": "{file:~/.config/opencode/prompts/sdr/sdr-init.md}",
+    "tools": { "bash": true, "read": true, "write": true, "edit": true, "glob": true, "grep": true, "webfetch": true, "engram_mem_save": true, "engram_mem_search": true, "engram_mem_get_observation": true }
+  },
+  "sdr-explore": {
+    "description": "SDR market and product exploration",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "openai/gpt-5.5",
+    "prompt": "{file:~/.config/opencode/prompts/sdr/sdr-explore.md}",
+    "tools": { "read": true, "glob": true, "grep": true, "webfetch": true, "engram_mem_save": true, "engram_mem_search": true, "engram_mem_get_observation": true }
+  },
+  "sdr-propose": {
+    "description": "SDR proposal synthesis",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "openai/gpt-5.5",
+    "prompt": "{file:~/.config/opencode/prompts/sdr/sdr-propose.md}",
+    "tools": { "read": true, "glob": true, "grep": true, "engram_mem_save": true, "engram_mem_search": true, "engram_mem_get_observation": true }
+  },
+  "sdr-spec": {
+    "description": "SDR product specification writer",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "openai/gpt-5.5",
+    "prompt": "{file:~/.config/opencode/prompts/sdr/sdr-spec.md}",
+    "tools": { "read": true, "glob": true, "grep": true, "engram_mem_save": true, "engram_mem_search": true, "engram_mem_get_observation": true }
+  },
+  "sdr-design": {
+    "description": "SDR technical design planner",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "openai/gpt-5.5",
+    "prompt": "{file:~/.config/opencode/prompts/sdr/sdr-design.md}",
+    "tools": { "read": true, "glob": true, "grep": true, "engram_mem_save": true, "engram_mem_search": true, "engram_mem_get_observation": true, "context7_resolve-library-id": true, "context7_query-docs": true }
+  },
+  "sdr-tasks": {
+    "description": "SDR coding task breakdown",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "openai/gpt-5.5",
+    "prompt": "{file:~/.config/opencode/prompts/sdr/sdr-tasks.md}",
+    "tools": { "read": true, "glob": true, "grep": true, "engram_mem_save": true, "engram_mem_search": true, "engram_mem_get_observation": true }
+  },
+  "sdr-verify": {
+    "description": "SDR validation and decision gate",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "openai/gpt-5.5",
+    "prompt": "{file:~/.config/opencode/prompts/sdr/sdr-verify.md}",
+    "tools": { "read": true, "glob": true, "grep": true, "webfetch": true, "engram_mem_save": true, "engram_mem_search": true, "engram_mem_get_observation": true, "context7_resolve-library-id": true, "context7_query-docs": true }
+  },
+  "sdr-source-of-truth": {
+    "description": "SDR final source-of-truth handoff",
+    "hidden": true,
+    "mode": "subagent",
+    "model": "openai/gpt-5.5",
+    "prompt": "{file:~/.config/opencode/prompts/sdr/sdr-source-of-truth.md}",
+    "tools": { "read": true, "glob": true, "grep": true, "engram_mem_save": true, "engram_mem_search": true, "engram_mem_get_observation": true }
+  }
+}

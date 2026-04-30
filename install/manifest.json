@@ -1,0 +1,11 @@
+{
+  "name": "opencode-sdr",
+  "version": "1.0.0",
+  "manifestVersion": 1,
+  "description": "Source manifest for installing Spec-Driven Research into OpenCode.",
+  "defaultArtifactStore": "engram",
+  "commands": ["sdr-new", "sdr-continue", "sdr-ff"],
+  "promptDirectory": "prompts/sdr",
+  "skillSourceDirectory": "skills",
+  "targetManifest": ".sdr-manifest.json"
+}
