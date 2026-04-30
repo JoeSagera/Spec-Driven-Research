@@ -135,9 +135,9 @@ Save as `type: decision` for funding recommendations, `type: discovery` for mode
 | Runway | > 12 months | Survival buffer |
 | Path to milestone | Clear with base case | Fundability |
 
-If 4 of 5 criteria are met, recommend **GO**.
-If 3 of 5 are met, recommend **ADJUST** with cost discipline.
-If fewer than 3 are met, recommend **RESTRUCTURE MODEL OR REDUCE BURN**.
+Final gate mapping: 4 of 5 criteria met → **GO**; 3 of 5 → **ADJUST**; fewer than 3 → **NO-GO**.
+
+Domain recommendation labels may be included as rationale only: ADJUST can recommend cost discipline, and NO-GO can recommend **RESTRUCTURE MODEL OR REDUCE BURN**.
 
 ---
 

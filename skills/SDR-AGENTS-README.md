@@ -65,10 +65,10 @@ Senior market research analyst specializing in TAM/SAM/SOM sizing, industry tren
 
 | Artifact | Topic Key | Type |
 |----------|-----------|------|
-| Market sizing | `market-intelligence/tam-sam-som` | `discovery` |
-| Trends | `market-intelligence/trends` | `discovery` |
-| Macro risks | `market-intelligence/macro-risks` | `discovery` |
-| Timing | `market-intelligence/timing` | `decision` |
+| Market sizing | `sdr/{project}/agents/market-intelligence/tam-sam-som` | `discovery` |
+| Trends | `sdr/{project}/agents/market-intelligence/trends` | `discovery` |
+| Macro risks | `sdr/{project}/agents/market-intelligence/macro-risks` | `discovery` |
+| Timing | `sdr/{project}/agents/market-intelligence/timing` | `decision` |
 
 ### Decision Criteria
 
@@ -116,11 +116,11 @@ Strategic product intelligence specialist. Maps competitors, constructs feature 
 
 | Artifact | Topic Key | Type |
 |----------|-----------|------|
-| Landscape | `competitive-analysis/landscape` | `discovery` |
-| Feature matrix | `competitive-analysis/feature-matrix` | `discovery` |
-| Gaps | `competitive-analysis/gaps` | `discovery` |
-| Positioning | `competitive-analysis/positioning` | `decision` |
-| Moat | `competitive-analysis/moat` | `decision` |
+| Landscape | `sdr/{project}/agents/competitive-analysis/landscape` | `discovery` |
+| Feature matrix | `sdr/{project}/agents/competitive-analysis/feature-matrix` | `discovery` |
+| Gaps | `sdr/{project}/agents/competitive-analysis/gaps` | `discovery` |
+| Positioning | `sdr/{project}/agents/competitive-analysis/positioning` | `decision` |
+| Moat | `sdr/{project}/agents/competitive-analysis/moat` | `decision` |
 
 ### Decision Criteria
 
@@ -168,11 +168,11 @@ Senior quantitative researcher. Validates datasets, designs experiments, tests h
 
 | Artifact | Topic Key | Type |
 |----------|-----------|------|
-| Datasets | `data-science/datasets` | `discovery` |
-| Hypotheses | `data-science/hypotheses` | `discovery` |
-| Models | `data-science/models` | `discovery` |
-| Causal inference | `data-science/causal-inference` | `discovery` |
-| Uncertainty | `data-science/uncertainty` | `discovery` |
+| Datasets | `sdr/{project}/agents/data-science/datasets` | `discovery` |
+| Hypotheses | `sdr/{project}/agents/data-science/hypotheses` | `discovery` |
+| Models | `sdr/{project}/agents/data-science/models` | `discovery` |
+| Causal inference | `sdr/{project}/agents/data-science/causal-inference` | `discovery` |
+| Uncertainty | `sdr/{project}/agents/data-science/uncertainty` | `discovery` |
 
 ### Decision Criteria
 
@@ -191,13 +191,14 @@ Senior quantitative researcher. Validates datasets, designs experiments, tests h
 ## 4. Technical Viability Agent
 
 ### Role
-Principal engineer and systems architect. Evaluates whether the product can be built, integrated, and scaled with available resources.
+Principal engineer, systems architect, and UI/UX contract owner when the product has frontend scope. Evaluates whether the product can be built, integrated, scaled, and implemented with a coherent `design.md`/DESIGN.md handoff.
 
 ### When to Use
 - Choosing a technology stack
 - Evaluating integration complexity (APIs, vendors)
 - Assessing scalability before launch
 - Security or compliance readiness reviews
+- Defining UI design direction, tokens/components, interaction states, and accessibility handoff for implementation agents
 
 ### Inputs
 - Product description and key features
@@ -212,6 +213,7 @@ Principal engineer and systems architect. Evaluates whether the product can be b
 |---------|---------|
 | Architecture Overview | Component diagram (textual), data flow |
 | Stack Recommendation | Per-component recommendation with alternatives and rationale |
+| UI/UX DESIGN.md Contract | Visual direction, exact tokens, components, states, accessibility, responsive rules, handoff constraints when UI exists |
 | Scalability Assessment | Current load, Year 1/3 projections, first bottleneck |
 | Integration Complexity | Effort, risk, vendor lock-in, docs quality per dependency |
 | Security & Compliance | Data sensitivity classification, gap analysis |
@@ -221,11 +223,12 @@ Principal engineer and systems architect. Evaluates whether the product can be b
 
 | Artifact | Topic Key | Type |
 |----------|-----------|------|
-| Stack | `technical-viability/stack` | `decision` |
-| Architecture | `technical-viability/architecture` | `decision` |
-| Scalability | `technical-viability/scalability` | `discovery` |
-| Integrations | `technical-viability/integrations` | `discovery` |
-| Security | `technical-viability/security` | `discovery` |
+| Stack | `sdr/{project}/agents/technical-viability/stack` | `decision` |
+| Architecture | `sdr/{project}/agents/technical-viability/architecture` | `decision` |
+| UI design contract | `sdr/{project}/agents/technical-viability/ui-design` | `decision` |
+| Scalability | `sdr/{project}/agents/technical-viability/scalability` | `discovery` |
+| Integrations | `sdr/{project}/agents/technical-viability/integrations` | `discovery` |
+| Security | `sdr/{project}/agents/technical-viability/security` | `discovery` |
 
 ### Decision Criteria
 
@@ -236,8 +239,9 @@ Principal engineer and systems architect. Evaluates whether the product can be b
 | Integration risk | No critical-risk integrations | Avoid blockers |
 | Security gaps | All high gaps have remediation plan | Compliance |
 | Team match | Adequate or Strong | Execution feasibility |
+| UI contract readiness | Exact, traceable, accessible, responsive when UI exists | Implementation quality |
 
-**Verdict rule:** 4/5 met → **GO** | 3/5 → **ADJUST** | <3 → **NO-GO**
+**Verdict rule:** 5/6 met → **GO** | 4/6 → **ADJUST** | <4 → **NO-GO**. If UI exists and the UI contract is missing/vague, the verdict cannot be GO.
 
 ---
 
@@ -274,11 +278,11 @@ Seasoned growth strategist and product marketer. Designs launch strategies, sele
 
 | Artifact | Topic Key | Type |
 |----------|-----------|------|
-| Channels | `go-to-market/channels` | `decision` |
-| Launch plan | `go-to-market/launch-plan` | `decision` |
-| Content | `go-to-market/content` | `decision` |
-| Messaging | `go-to-market/messaging` | `decision` |
-| Partnerships | `go-to-market/partnerships` | `discovery` |
+| Channels | `sdr/{project}/agents/go-to-market/channels` | `decision` |
+| Launch plan | `sdr/{project}/agents/go-to-market/launch-plan` | `decision` |
+| Content | `sdr/{project}/agents/go-to-market/content` | `decision` |
+| Messaging | `sdr/{project}/agents/go-to-market/messaging` | `decision` |
+| Partnerships | `sdr/{project}/agents/go-to-market/partnerships` | `discovery` |
 
 ### Decision Criteria
 
@@ -290,7 +294,7 @@ Seasoned growth strategist and product marketer. Designs launch strategies, sele
 | Content coverage | Hero + hub defined for launch | Awareness |
 | Partnership pipeline | ≥1 active discussion | Distribution |
 
-**Verdict rule:** 4/5 met → **LAUNCH** | 3/5 → **LAUNCH WITH LIMITED SCOPE** | <3 → **DELAY LAUNCH**
+**Verdict rule:** 4/5 met → **GO** | 3/5 → **ADJUST** | <3 → **NO-GO**. Use LAUNCH / LAUNCH WITH LIMITED SCOPE / DELAY LAUNCH only as domain recommendation labels in the rationale.
 
 ---
 
@@ -328,12 +332,12 @@ Growth engineer and analytics architect. Designs measurement frameworks, optimiz
 
 | Artifact | Topic Key | Type |
 |----------|-----------|------|
-| Metrics | `growth-analytics/metrics` | `decision` |
-| SEO | `growth-analytics/seo` | `discovery` |
-| Retention | `growth-analytics/retention` | `discovery` |
-| Loops | `growth-analytics/loops` | `decision` |
-| Experiments | `growth-analytics/experiments` | `discovery` |
-| CRM | `growth-analytics/crm` | `decision` |
+| Metrics | `sdr/{project}/agents/growth-analytics/metrics` | `decision` |
+| SEO | `sdr/{project}/agents/growth-analytics/seo` | `discovery` |
+| Retention | `sdr/{project}/agents/growth-analytics/retention` | `discovery` |
+| Loops | `sdr/{project}/agents/growth-analytics/loops` | `decision` |
+| Experiments | `sdr/{project}/agents/growth-analytics/experiments` | `discovery` |
+| CRM | `sdr/{project}/agents/growth-analytics/crm` | `decision` |
 
 ### Decision Criteria
 
@@ -345,7 +349,7 @@ Growth engineer and analytics architect. Designs measurement frameworks, optimiz
 | Growth loops | ≥1 loop with positive unit economics | Sustainable growth |
 | Experiment pipeline | ≥3 prioritized experiments | Velocity |
 
-**Verdict rule:** 4/5 met → **SCALE** | 3/5 → **OPTIMIZE** | <3 → **FOUNDATION BUILDING**
+**Verdict rule:** 4/5 met → **GO** | 3/5 → **ADJUST** | <3 → **NO-GO**. Use SCALE / OPTIMIZE / FOUNDATION BUILDING only as domain recommendation labels in the rationale.
 
 ---
 
@@ -385,11 +389,11 @@ Financial analyst and startup CFO advisor. Models unit economics, forecasts reve
 
 | Artifact | Topic Key | Type |
 |----------|-----------|------|
-| Unit economics | `financial-projections/unit-economics` | `decision` |
-| Revenue forecast | `financial-projections/revenue-forecast` | `decision` |
-| Burn & runway | `financial-projections/burn-runway` | `discovery` |
-| Scenarios | `financial-projections/scenarios` | `decision` |
-| Funding | `financial-projections/funding` | `decision` |
+| Unit economics | `sdr/{project}/agents/financial-projections/unit-economics` | `decision` |
+| Revenue forecast | `sdr/{project}/agents/financial-projections/revenue-forecast` | `decision` |
+| Burn & runway | `sdr/{project}/agents/financial-projections/burn-runway` | `discovery` |
+| Scenarios | `sdr/{project}/agents/financial-projections/scenarios` | `decision` |
+| Funding | `sdr/{project}/agents/financial-projections/funding` | `decision` |
 
 ### Decision Criteria
 
@@ -436,12 +440,12 @@ Chief strategist and red team. Performs cross-phase consistency checks, synthesi
 
 | Artifact | Topic Key | Type |
 |----------|-----------|------|
-| Synthesis | `validation/synthesis` | `decision` |
-| Consistency | `validation/consistency` | `discovery` |
-| Assumptions | `validation/assumptions` | `discovery` |
-| Risks | `validation/risks` | `discovery` |
-| Verdict | `validation/verdict` | `decision` |
-| Pre-mortem | `validation/premortem` | `discovery` |
+| Synthesis | `sdr/{project}/agents/validation/synthesis` | `decision` |
+| Consistency | `sdr/{project}/agents/validation/consistency` | `discovery` |
+| Assumptions | `sdr/{project}/agents/validation/assumptions` | `discovery` |
+| Risks | `sdr/{project}/agents/validation/risks` | `discovery` |
+| Verdict | `sdr/{project}/agents/validation/verdict` | `decision` |
+| Pre-mortem | `sdr/{project}/agents/validation/premortem` | `discovery` |
 
 ### Decision Criteria
 
@@ -462,18 +466,18 @@ Chief strategist and red team. Performs cross-phase consistency checks, synthesi
 Before calling the Validation Agent, verify these agents have produced artifacts:
 
 ```
-✅ market-intelligence/tam-sam-som
-✅ competitive-analysis/landscape
-✅ competitive-analysis/feature-matrix
-✅ data-science/datasets        (if applicable)
-✅ technical-viability/stack
-✅ technical-viability/scalability
-✅ go-to-market/channels
-✅ go-to-market/launch-plan
-✅ growth-analytics/metrics
-✅ growth-analytics/retention
-✅ financial-projections/unit-economics
-✅ financial-projections/revenue-forecast
+✅ sdr/{project}/agents/market-intelligence/tam-sam-som
+✅ sdr/{project}/agents/competitive-analysis/landscape
+✅ sdr/{project}/agents/competitive-analysis/feature-matrix
+✅ sdr/{project}/agents/data-science/datasets        (if applicable)
+✅ sdr/{project}/agents/technical-viability/stack
+✅ sdr/{project}/agents/technical-viability/scalability
+✅ sdr/{project}/agents/go-to-market/channels
+✅ sdr/{project}/agents/go-to-market/launch-plan
+✅ sdr/{project}/agents/growth-analytics/metrics
+✅ sdr/{project}/agents/growth-analytics/retention
+✅ sdr/{project}/agents/financial-projections/unit-economics
+✅ sdr/{project}/agents/financial-projections/revenue-forecast
 ```
 
 Missing any of these? The Validation Agent will flag the gap and recommend which agent to re-run.
@@ -484,10 +488,10 @@ Missing any of these? The Validation Agent will flag the gap and recommend which
 
 ```bash
 # All artifacts for a specific agent
-mem_search(query: "market-intelligence", project: "ai-contract-review")
+mem_search(query: "sdr/ai-contract-review/agents/market-intelligence", project: "ai-contract-review")
 
 # Specific artifact
-mem_search(query: "market-intelligence/tam-sam-som")
+mem_search(query: "sdr/ai-contract-review/agents/market-intelligence/tam-sam-som")
 
 # Full content of an artifact
 mem_get_observation(id: {observation_id})

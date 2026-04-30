@@ -109,6 +109,7 @@ Before reading the full artifacts, write 5-10 assertions that MUST be true for a
 - [ ] "Every risk with Probability=HIGH AND Impact=HIGH has a documented mitigation" (from proposal/design)
 - [ ] "No placeholder text ([TBD], [TODO], 'fill in details') in any artifact" (all phases)
 - [ ] "Design decisions trace back to at least one requirement or proposal goal" (spec ↔ design)
+- [ ] "If UI/frontend scope exists, design contains a professional UI/UX DESIGN.md contract with exact values, states, accessibility, responsive behavior, and traceability" (design)
 
 Add project-specific assertions based on the orchestrator's concerns or known critical areas.
 
@@ -136,6 +137,20 @@ FOR EACH requirement in spec:
 ├── Are all spec scenarios covered by the design (even if indirectly)?
 └── Flag: CRITICAL if requirement has NO design coverage
     Flag: WARNING if design partially covers or deviates from requirement
+```
+
+If the product has UI/frontend scope, also validate the `UI/UX DESIGN.md Contract` section:
+
+```
+UI Contract Check:
+├── Product Design Intent and Visual Theme are specific to this product
+├── Color palette has semantic roles and exact hex values
+├── Typography, spacing, layout, responsive grid, and component anatomy are explicit
+├── Forms, validation, interaction states, motion/reduced-motion, and accessibility gates are covered
+├── Design tokens and Do/Don't guardrails are present
+├── Agent handoff constraints are clear enough for implementation
+└── Flag: CRITICAL if UI scope exists but the contract is missing or vague
+    Flag: CRITICAL if UI decisions lack traceability to spec/proposal
 ```
 
 Also check the reverse:
@@ -225,7 +240,7 @@ Completeness Matrix:
 ├── Phase 3 (Spec)
 │   └── Contains: requirements (MUST/SHOULD/MAY), scenarios (Given/When/Then), coverage?
 ├── Phase 4 (Design)
-│   └── Contains: decisions, rejected alternatives, file changes, architecture?
+│   └── Contains: decisions, rejected alternatives, file changes, architecture, and UI/UX DESIGN.md contract when UI exists?
 ├── Phase 5 (Tasks)
 │   └── Contains: specific tasks, dependency order, test coverage mapping?
 └── Flag: CRITICAL if any phase is substantively incomplete
@@ -321,6 +336,7 @@ Return to the orchestrator:
 | Check | Status | Notes |
 |-------|--------|-------|
 | Spec ↔ Design | ✅ Aligned / ⚠️ Partial / ❌ Divergent | {notes} |
+| UI/UX Contract | ✅ Complete / ⚠️ Thin / ❌ Missing / N/A | {notes} |
 | Business Model Viability | ✅ Viable / ⚠️ Uncertain / ❌ Not Viable | {notes} |
 | Team Capability Match | ✅ Match / ⚠️ Gap / ❌ Critical Gap | {notes} |
 | Risk Coverage | ✅ Complete / ⚠️ Partial / ❌ Missing | {notes} |
@@ -367,6 +383,7 @@ Return to the orchestrator:
 - Be OBJECTIVE — report what IS, not what should be
 - Do NOT produce new research, new specs, or new designs — only validate what exists
 - CRITICAL issues = must resolve before GO
+- Missing UI/UX DESIGN.md contract, missing professional design sections, or missing UI traceability is CRITICAL/ADJUST when the product has UI/frontend scope.
 - WARNINGS = should resolve but may not block if properly acknowledged and mitigated
 - SUGGESTIONS = improvements, not blockers
 - If a phase artifact is MISSING, that is automatically a CRITICAL issue unless the orchestrator explicitly scoped it out

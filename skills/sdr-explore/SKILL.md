@@ -112,7 +112,7 @@ INVESTIGATE:
 └── PILLAR D: Trend & Timing (Macro + Technology + Regulatory)
 ```
 
-**Time-boxing rule**: If you have 80% confidence in the hypothesis after investigating 3 authoritative sources per pillar, STOP. If <80% confidence after 5 sources, flag as **MORE_DATA** and escalate to the orchestrator.
+**Time-boxing rule**: If you have 80% confidence in the hypothesis after investigating 3 authoritative sources per pillar, STOP. If <80% confidence after 5 sources, return `Decision Gate: ADJUST` with the missing data points and `next_recommended: none`.
 
 ---
 
@@ -250,7 +250,7 @@ Return EXACTLY this format to the orchestrator:
 - {Risk 2 — likelihood / impact}
 
 ### Next Recommended Phase
-{proposal | halt | more-data}
+{proposal | none}
 ```
 
 ## Decision Gate Criteria
@@ -292,7 +292,7 @@ Return to the orchestrator:
 - `status`: `success` | `partial` | `blocked`
 - `executive_summary`: 1–3 sentence summary of what was investigated and the verdict
 - `artifacts`: list of artifact keys/paths written (e.g., `Engram sdr/{project}/explore`)
-- `next_recommended`: the next SDR phase to run, or `none` / `halt`
+- `next_recommended`: `proposal` when the Decision Gate is `GO`; otherwise `none`.
 - `risks`: risks discovered, or "None"
 - `decision_gate`: `GO` | `ADJUST` | `NO-GO` — based on Decision Gate
 - `skill_resolution`: how skills were loaded — `injected`, `fallback-registry`, `fallback-path`, or `none`

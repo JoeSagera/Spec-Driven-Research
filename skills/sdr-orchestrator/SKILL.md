@@ -71,18 +71,20 @@ Usage: `/sdr-ff user-behavior-analysis`
 
 ## SDD Init Guard Equivalent
 
-Before starting ANY research project, verify `sdr-init` has been run:
+Before starting or resuming research, verify the appropriate SDR context exists:
 
 ```
-1. mem_search(query: "sdr-init/{project-name}", project: "{project-name}")
-2. If found → proceed
-3. If NOT found →
-   a. Check if sdd-init exists: mem_search(query: "sdd-init/{project-name}")
-   b. If sdd-init exists → warn user: "SDD init found but SDR init missing. Run `/sdr-init {project}` first?"
-   c. If neither exists → prompt: "No research context found. Run `/sdr-init {project}` to bootstrap this research project."
+1. For `/sdr-new` and `/sdr-ff`:
+   a. mem_search(query: "sdr-init/{project-name}", project: "{project-name}")
+   b. If found → proceed from the requested chain position
+   c. If NOT found → run `sdr-init` first, then continue with the canonical chain
+2. For `/sdr-continue`, resume, or later-phase execution:
+   a. mem_search(query: "sdr/{project-name}/state", project: "{project-name}")
+   b. Confirm required prior phase artifacts exist
+   c. If missing → stop and ask the user to start with `/sdr-new {project}` or provide the missing project state
 ```
 
-Never silently initialize. The user must explicitly confirm or run the init command.
+`sdr-init` is a delegated phase, not a user-facing meta-command. Do not ask users to run `/sdr-init` before `/sdr-new`; `/sdr-new` and `/sdr-ff` bootstrap it when needed.
 
 ---
 
@@ -212,7 +214,7 @@ Sub-agents MUST NOT load skills via the `skill` tool or re-read SKILL.md files. 
 
 ## Engram Topic Key Format
 
-ALL SDR artifacts persisted to Engram MUST use this deterministic format:
+All post-init SDR phase artifacts persisted to Engram MUST use this deterministic format:
 
 ```
 title:     sdr/{project-name}/{phase}
@@ -221,6 +223,8 @@ type:      architecture
 project:   {project-name}
 scope:     project
 ```
+
+Exception: the init artifact is keyed as `sdr-init/{project}` because it bootstraps project context before the `sdr/{project}/...` artifact tree exists.
 
 ### Phase Keys
 
@@ -309,6 +313,7 @@ Before evaluating the `decision_gate` from the sub-agent, the orchestrator MUST 
 - Verify it follows the expected structure (check key sections exist)
 - Verify no placeholder text ([TBD], [TODO], "fill in", "appropriate") is present
 - Verify acceptance criteria / success criteria are present where required
+- For `sdr-design`, verify `design.md` contains professional technical design sections and, when UI/frontend scope exists, a UI/UX DESIGN.md contract with exact values, visual direction, tokens/components, states, accessibility, responsive behavior, and traceability to proposal/spec.
 - If Stage 1 FAILS: Do NOT evaluate decision_gate. Return ADJUST with feedback: "Artifact structure incomplete — missing X, contains placeholders Y."
 
 **Stage 2: Business Decision (GO/ADJUST/NO-GO)**
@@ -469,7 +474,7 @@ mem_save(
 User: /sdr-ff user-behavior-analysis
 
 Orchestrator:
-  1. Check sdr-init guard → pass
+  1. Check sdr-init guard → run sdr-init if missing
   2. mem_session_start("sdr-user-behavior-analysis-2024-01-15")
   3. Save config: execution_mode=automatic, artifact_store=engram
   4. Launch sdr-init, then sdr-explore for "user-behavior-analysis"
@@ -503,7 +508,7 @@ Orchestrator:
 User: /sdr-new user-behavior-analysis
 
 Orchestrator:
-  1. Check sdr-init guard → pass
+  1. Check sdr-init guard → run sdr-init if missing
   2. Ask: "Automatic or Interactive mode?" → User: "Interactive"
   3. mem_session_start(...)
   4. Save config: execution_mode=interactive

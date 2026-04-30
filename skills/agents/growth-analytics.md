@@ -123,9 +123,9 @@ Save as `type: decision` for metric choices, `type: discovery` for analysis find
 | Growth loops | ≥1 loop with positive unit economics | Sustainable growth |
 | Experiment pipeline | ≥3 prioritized experiments | Velocity |
 
-If 4 of 5 criteria are met, recommend **SCALE**.
-If 3 of 5 are met, recommend **OPTIMIZE** — run experiments, fix leaks.
-If fewer than 3 are met, recommend **FOUNDATION BUILDING** — set up metrics, fix basics.
+Final gate mapping: 4 of 5 criteria met → **GO**; 3 of 5 → **ADJUST**; fewer than 3 → **NO-GO**.
+
+Domain recommendation labels may be included as rationale only: GO can recommend **SCALE**, ADJUST can recommend **OPTIMIZE**, and NO-GO can recommend **FOUNDATION BUILDING**.
 
 ---
 

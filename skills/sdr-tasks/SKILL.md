@@ -40,16 +40,19 @@ Extract:
 
 - MUST/SHOULD requirements and acceptance criteria
 - architecture and tech-stack constraints
+- design decisions, UI components, design tokens, and DESIGN.md handoff constraints when UI exists
 - founder constraints: solo capacity, budget, timeline, risk tolerance, launch quality
 - dependencies, external integrations, and risk mitigations
 
 ### Step 2: Create Vertical Coding Slices
 
-Every task must deliver a working, testable product increment end-to-end.
+Every task must deliver a working, testable product increment end-to-end and map back to design decisions/components where applicable.
 
 Bad: “Build all backend APIs.”
 
 Good: “User can create an account: schema + API + UI + validation + tests.”
+
+For UI products, include explicit slices for component states, accessibility behavior, responsive behavior, and design debt cleanup identified in `design.md`.
 
 ### Step 3: Produce `tasks.md`
 
@@ -68,9 +71,9 @@ Good: “User can create an account: schema + API + UI + validation + tests.”
 
 ## 1. Implementation Slices
 
-| Task ID | Vertical Slice | Size | Dependencies | Mapped Requirements | Acceptance Criteria | Test Strategy | SDD Handoff Notes |
-|---------|----------------|------|--------------|---------------------|--------------------|---------------|-------------------|
-| T-01 | {End-to-end user outcome} | S/M | {none/T-xx} | {REQ-xx} | {Given/When/Then summary} | {unit/integration/e2e} | {modules likely affected} |
+| Task ID | Vertical Slice | Size | Dependencies | Mapped Requirements | Design Decisions / Components | Acceptance Criteria | Test Strategy | SDD Handoff Notes |
+|---------|----------------|------|--------------|---------------------|-------------------------------|--------------------|---------------|-------------------|
+| T-01 | {End-to-end user outcome} | S/M | {none/T-xx} | {REQ-xx} | {DEC-xx / component / token} | {Given/When/Then summary} | {unit/integration/e2e/a11y} | {modules likely affected} |
 
 ## 2. Dependency Order
 
@@ -87,6 +90,7 @@ Each task maps to at least one requirement and one testable acceptance criterion
 - Unit tests: {scope}
 - Integration tests: {scope}
 - E2E/acceptance tests: {scope}
+- UI/accessibility tests: {keyboard, focus-visible, forms, states, responsive checks when UI exists}
 - Manual verification: {only where automation is impractical}
 
 ## 5. Excluded From Coding Source of Truth
@@ -98,6 +102,7 @@ GTM, finance, pricing, SEO/content calendars, CRM flows, and launch operations a
 - [ ] Every MUST requirement maps to at least one task
 - [ ] Every task has acceptance criteria
 - [ ] Every task has a test strategy
+- [ ] UI tasks map to design decisions/components and include states, accessibility, and responsive behavior when UI exists
 - [ ] No task is XL
 - [ ] Critical dependencies are explicit
 
@@ -118,6 +123,8 @@ Return the shared result envelope with `next_recommended: verify`.
 
 - ALWAYS produce implementation-ready vertical slices, not GTM or finance tasks.
 - ALWAYS map tasks to requirements and acceptance criteria.
+- ALWAYS map UI tasks to design decisions/components/tokens from `design.md` when UI exists.
+- ALWAYS include UI state, accessibility, and responsive tasks when the design includes frontend scope.
 - ALWAYS include dependency order, test strategy, and SDD handoff notes.
 - Decision gate is mandatory; if tasks are not coding-ready, return `ADJUST`.
 - Fresh sub-agent per task: document that each later implementation task should be executed in a fresh context.

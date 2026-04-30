@@ -83,7 +83,7 @@ init ──→ explore ──→ proposal ──→ spec ──→ design ──
 | **explore** | Scans product category, market shape, competitors, user signals | Research landscape + gap analysis | 1-2 min |
 | **proposal** | Defines product direction, scope, risks, founder fit | Product proposal with risk assessment | 1-2 min |
 | **spec** | Writes structured requirements and success criteria | Spec sheet with acceptance criteria | 1-2 min |
-| **design** | Designs methodology, agent selection, data sources | Research design document | 1-2 min |
+| **design** | Produces technical architecture and, for UI products, a professional UI/UX DESIGN.md contract | Technical `design.md` with architecture, stack, risks, and UI handoff when applicable | 1-2 min |
 | **tasks** | Breaks product requirements into implementation-ready vertical slices | Coding task list with dependencies and tests | 1 min |
 | **verify** | Cross-checks consistency, validates assumptions | Verification report + final verdict | 1-2 min |
 | **source-of-truth** | Consolidates verified SDR artifacts for SDD | Coding-ready Source of Truth | 1 min |
@@ -96,7 +96,7 @@ Each phase saves artifacts to Engram. Nothing is lost.
 
 ### Engram Topic Keys (deterministic)
 
-Every artifact is saved under `sdr/{project-name}/{phase}`:
+Init is saved as `sdr-init/{project}`. Later SDR phase artifacts are saved under `sdr/{project-name}/{phase}`:
 
 | Phase | Topic Key | Example |
 |-------|-----------|---------|
@@ -192,7 +192,7 @@ You want to build **AI-powered contract review for mid-market legal teams**.
 > Decision gate: **GO**
 
 **5. Design phase completes**
-> Technical design: conceptual services for ingestion, extraction, risk scoring, reviewer workflow, storage, and observability; required PoC validates LLM clause extraction accuracy.  
+> Technical design: conceptual services for ingestion, extraction, risk scoring, reviewer workflow, storage, and observability; UI contract defines review states, accessibility, and visual hierarchy if the product has a frontend; required PoC validates LLM clause extraction accuracy.
 > Decision gate: **GO**
 
 **6. Tasks phase completes**
@@ -214,7 +214,7 @@ Search Engram:
 sdr/ai-contract-review/explore   → Domain landscape
 sdr/ai-contract-review/proposal  → Product direction & scope
 sdr/ai-contract-review/spec      → Requirements & acceptance criteria
-sdr/ai-contract-review/design    → Methodology & agent selection
+sdr/ai-contract-review/design    → Technical architecture + UI/UX DESIGN.md contract when applicable
 sdr/ai-contract-review/tasks           → Coding task breakdown with dependencies
 sdr/ai-contract-review/verify-report   → Consistency check & final verdict
 sdr/ai-contract-review/source-of-truth → Coding-ready handoff package for SDD
@@ -236,7 +236,7 @@ The orchestrator hands the SDR `source-of-truth` artifact to the SDD pipeline as
 
 | Problem | Fix |
 |---------|-----|
-| "No research context found" | Run `/sdr-init {project}` before `/sdr-new` |
+| "No research context found" | Start with `/sdr-new {project}` so the orchestrator runs `sdr-init` first, or use `/sdr-continue {project}` only for projects with existing state |
 | Research stopped mid-phase | Use `/sdr-continue {project}` — state is preserved |
 | Want to change scope mid-flight | Reply `ADJUST` with your new constraint |
 | Lost after compaction | `/sdr-continue` reads state from Engram automatically |

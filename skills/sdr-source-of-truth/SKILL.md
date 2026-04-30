@@ -38,9 +38,12 @@ Required sections:
 4. MVP Scope and Anti-Scope
 5. Requirements and Acceptance Criteria Summary
 6. Technical Architecture and Tech Stack
-7. Implementation-Ready Task Slices
-8. Risks, Decision Gate, and Open Questions
-9. SDD Handoff Notes for `sdd-propose`
+7. Design Direction, Tokens, Components, and Handoff Constraints (when UI exists)
+8. Implementation-Ready Task Slices
+9. Risks, Decision Gate, and Open Questions
+10. SDD Handoff Notes for `sdd-propose`
+
+For UI/frontend products, the Source of Truth must carry forward the design direction, semantic tokens, component/states inventory, accessibility constraints, responsive behavior, known design debt, and implementation guardrails from `design.md`. Do not reduce the UI contract to "make it modern" — preserve exact values and traceability.
 
 ## Handoff Rule
 

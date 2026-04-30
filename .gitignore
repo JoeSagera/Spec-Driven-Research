@@ -1,4 +1,6 @@
 .gga
 
 # Local research experiments and external knowledge dumps are not tracked
-research/
+research/*
+!research/synthesis/
+!research/synthesis/**

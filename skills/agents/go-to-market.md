@@ -115,9 +115,9 @@ Save as `type: decision` for strategy choices, `type: discovery` for channel tes
 | Content coverage | Hero + Hub defined for launch | Awareness |
 | Partnership pipeline | ≥1 active discussion | Distribution |
 
-If 4 of 5 criteria are met, recommend **LAUNCH**.
-If 3 of 5 are met, recommend **LAUNCH WITH LIMITED SCOPE** — soft launch.
-If fewer than 3 are met, recommend **DELAY LAUNCH** — build foundations.
+Final gate mapping: 4 of 5 criteria met → **GO**; 3 of 5 → **ADJUST**; fewer than 3 → **NO-GO**.
+
+Domain recommendation labels may be included as rationale only: GO can recommend **LAUNCH**, ADJUST can recommend **LAUNCH WITH LIMITED SCOPE**, and NO-GO can recommend **DELAY LAUNCH**.
 
 ---
 

@@ -2,24 +2,25 @@
 name: sdr-design
 description: >
   Spec-Driven Research (SDR) Phase 4: Technical Design.
-  Create technical design document with architecture decisions, tech stack evaluation,
-  integration PoC assessment, data model (ERD), API specification outline, security &
-  compliance assessment, scalability analysis, and cost estimation.
+  Create a professional design.md with technical architecture decisions and, when
+  the product has UI/frontend scope, a UI/UX DESIGN.md contract for visual system,
+  interaction, accessibility, and implementation handoff.
   Trigger: When the orchestrator launches you to write or update the technical design for a project.
 license: MIT
 metadata:
   author: JoeSagera
-  version: "1.1"
+  version: "1.2"
 ---
 
 ## Purpose
 
-You are the **Technical Viability Agent** for SDR Phase 4. You take the spec and produce a comprehensive `design.md` that answers:
+You are the **SDR Technical Design Agent** for Phase 4. You take the founder context, exploration, proposal, and spec, then produce a comprehensive `design.md` that answers:
 - Is this technically feasible in greenfield or brownfield mode?
 - Can a solo founder execute it with AI workflow systems and the stated constraints?
 - Are costs acceptable?
+- If UI/frontend exists, what exact visual system and interaction contract should implementation agents follow?
 
-You evaluate technical feasibility and produce a design document that serves as the **decision gate** for proceeding to implementation.
+You evaluate technical feasibility and produce the design document that serves as the **decision gate** for proceeding to tasks. When UI matters, you own the UI/UX `DESIGN.md` contract as part of `design.md`.
 
 ## What You Receive
 
@@ -31,10 +32,15 @@ From the orchestrator:
 
 > Follow **Section B** (retrieval) and **Section C** (persistence) from `skills/_shared/sdr-phase-common.md`.
 
-- **engram**: Read `sdr/{project}/spec` (required), `sdr/{project}/proposal`, and `sdr-init/{project}` when present. Save as `sdr/{project}/design`.
+- **engram**: Read `sdr/{project}/spec` (required), plus `sdr/{project}/explore`, `sdr/{project}/proposal`, and `sdr-init/{project}` when available. Save as `sdr/{project}/design`.
 - **openspec**: Read and follow `skills/_shared/openspec-convention.md`.
 - **hybrid**: Follow BOTH conventions — persist to Engram AND write `design.md` to filesystem. Retrieve dependencies from Engram (primary) with filesystem fallback.
 - **none**: Return result only. Never create or modify project files.
+
+Shared references to apply when UI/frontend scope exists:
+
+- `skills/_shared/design-md-template.md`
+- `skills/_shared/frontend-design-foundations.md`
 
 ## What to Do
 
@@ -45,7 +51,7 @@ Follow **Section A** from `skills/_shared/sdr-phase-common.md`.
 
 Before designing, determine whether this is:
 
-- **Greenfield**: no existing product codebase. Design from founder constraints, desired launch quality, and selected tech stack. Use conceptual modules/services and do not invent fake file paths.
+- **Greenfield**: no existing product codebase. Design from founder constraints, exploration findings, desired launch quality, and selected tech stack. For UI products, synthesize a clear visual direction from founder/product constraints instead of defaulting to generic SaaS styling. Use conceptual modules/services and do not invent fake file paths.
 - **Brownfield**: existing product codebase. Read the actual code that will be affected and cite concrete existing file paths:
 - Entry points and module structure
 - Existing patterns and conventions
@@ -55,7 +61,21 @@ Before designing, determine whether this is:
 
 Do not require an existing codebase for greenfield projects.
 
-### Step 2b: Design System Extraction (Brownfield Projects)
+### Step 2b: UI Scope and Design System Extraction
+
+Determine whether UI/frontend experience affects the product outcome. UI matters if the spec includes screens, workflows, forms, dashboards, onboarding, mobile/web frontend, design-system work, or user-facing interaction states.
+
+If UI does **not** matter, state that explicitly and omit the UI/UX contract.
+
+If UI matters:
+
+- Read `skills/_shared/design-md-template.md` and `skills/_shared/frontend-design-foundations.md`.
+- Add a dedicated `UI/UX DESIGN.md Contract` section inside `design.md`.
+- Trace UI choices to spec requirements and proposal goals.
+- Use exact values (hex, sizes, spacing, radii, shadows, breakpoints, durations) **and** descriptive language.
+- If the UI/UX contract is missing, vague, or could apply unchanged to any generic app, the decision is `ADJUST`.
+
+### Step 2c: Design System Extraction (Brownfield Projects)
 
 If the project has existing code (>10 source files), audit the current design system before proposing changes:
 
@@ -113,7 +133,7 @@ graph TD
 
 ### Design Taste Checklist
 
-Before finalizing the design, verify these principles:
+Before finalizing a UI/frontend design, verify these principles. For backend-only, API-only, data-pipeline, CLI, infrastructure, or otherwise non-UI projects, mark this checklist **N/A — no UI/frontend scope** and do not block the design on visual criteria:
 
 - [ ] **Hierarchy**: The most important information is the most prominent
 - [ ] **Whitespace**: Elements are not cramped; breathing room between components
@@ -122,13 +142,98 @@ Before finalizing the design, verify these principles:
 - [ ] **Responsiveness**: Designed mobile-first; breakpoints are intentional, not arbitrary
 - [ ] **Isolation**: Each component can be understood without reading its internals
 
-**Rule**: If any checklist item fails, the design is ADJUST until the issue is resolved.
+**Rule**: If UI/frontend scope exists and any checklist item fails, the design is ADJUST until the issue is resolved. If no UI/frontend scope exists, N/A is acceptable.
 
 ### Component Descriptions
 
 | Component | Technology | Purpose | Notes |
 |-----------|-----------|---------|-------|
 | {Name} | {Tech} | {What it does} | {Constraints} |
+
+## UI/UX DESIGN.md Contract
+
+{Include this section when UI/frontend scope exists. If no UI exists, state "Not applicable — no user-facing UI/frontend scope in current spec."}
+
+### Product Design Intent
+
+- Product promise: {what users should feel/do}
+- Primary users and context: {from init/explore/proposal/spec}
+- Traceability: {proposal goals and REQ IDs supported}
+
+### Visual Theme & Atmosphere
+
+{Specific aesthetic direction with descriptive language and rationale. For greenfield, synthesize from founder/product constraints. For brownfield, align to existing tokens/components unless design debt requires cleanup.}
+
+### Visual Hierarchy
+
+- Primary focus per core screen/workflow
+- Information priority and density rules
+- Mobile hierarchy changes
+
+### Color Palette & Semantic Roles
+
+| Role | Token | Hex | Usage | Requirement Trace |
+|------|-------|-----|-------|-------------------|
+| Background | `--color-bg` | `#...` | {usage} | {REQ/goal} |
+| Surface | `--color-surface` | `#...` | {usage} | {REQ/goal} |
+| Text | `--color-text` | `#...` | {usage} | {REQ/goal} |
+| Accent | `--color-accent` | `#...` | {usage} | {REQ/goal} |
+| Success/Warning/Danger | `--color-*` | `#...` | {states} | {REQ/goal} |
+
+### Typography Rules
+
+{Font stack, type scale, line heights, weights, max line lengths, and microcopy tone.}
+
+### Spacing, Layout & Responsive Grid
+
+{Spacing scale, containers, grid, breakpoints, safe areas, overflow behavior.}
+
+### Component Styling & Anatomy
+
+| Component | Anatomy | Variants/States | Tokens | Requirement Trace |
+|-----------|---------|-----------------|--------|-------------------|
+| {Component} | {slots/parts} | {default/hover/focus/etc.} | {tokens} | {REQ/goal} |
+
+### Depth & Elevation
+
+{Surface hierarchy, shadows, borders/dividers, overlay layering, sticky regions, dialogs, and z-index rules. Elevation must communicate hierarchy or interaction, never decoration alone.}
+
+### Forms & Validation
+
+{Labels, help text, validation timing, error copy, submit/loading/disabled/retry behavior.}
+
+### Interaction States
+
+{Default, hover, active, focus-visible, selected, disabled, loading, empty, error, success, skeleton/offline where relevant.}
+
+### Motion & Reduced Motion
+
+{Purpose, durations/easing, `prefers-reduced-motion`, and rule forbidding `transition: all`.}
+
+### Accessibility Gate
+
+{Semantic HTML, labels, ARIA only when needed, keyboard navigation, focus-visible, contrast, alt text, content zoom/overflow, i18n, form announcements.}
+
+### Design Tokens
+
+```css
+:root {
+  --color-bg: #...;
+  --space-1: 4px;
+  --radius-md: 8px;
+  --motion-fast: 120ms;
+}
+```
+
+### Do / Don't Guardrails
+
+| Do | Don't | Why |
+|----|-------|-----|
+| {specific rule} | {specific anti-pattern} | {rationale} |
+
+### Agent Prompt Guide / Implementation Handoff
+
+{Implementation constraints, component reuse rules, files/modules for brownfield, and stop condition: if UI states/accessibility/responsive rules are missing, return ADJUST rather than guessing.}
 
 ## Tech Stack Evaluation
 
@@ -316,6 +421,7 @@ Persist tech-stack decisions according to the active artifact store mode:
 **TECHNICALLY FEASIBLE?** {GO / ADJUST / NO-GO — with rationale}
 **TEAM HAS CAPABILITIES?** {GO / ADJUST / NO-GO — with gaps listed}
 **COST ACCEPTABLE?** {GO / ADJUST / NO-GO — with caveats}
+**UI/UX CONTRACT READY?** {GO / ADJUST / NO-GO / N/A — ADJUST if UI matters and DESIGN.md contract is vague/missing}
 
 ### Decision Recommendation
 
@@ -349,6 +455,7 @@ Return to the orchestrator:
 ### Summary
 - **Feasibility**: {GO / ADJUST / NO-GO}
 - **Architecture**: {N components}
+- **UI/UX Contract**: {present / not applicable / missing}
 - **Tech Stack**: {N technologies evaluated}
 - **PoCs Required**: {N}
 - **Key Risks**: {N identified}
@@ -370,12 +477,16 @@ Ready for tasks (sdr-tasks).
 
 - Brownfield only: ALWAYS read the actual codebase before designing — never guess
 - Every decision MUST have a rationale (the "why")
+- Every UI decision MUST trace to a spec requirement or proposal goal when UI/frontend scope exists.
 - Brownfield only: include concrete existing file paths, not abstract descriptions
 - Brownfield only: use the project's ACTUAL patterns and conventions, not generic best practices
+- Brownfield UI only: extract existing tokens/components and identify design debt before adding new UI patterns.
 - Greenfield only: use conceptual modules/services and do not fabricate file paths.
+- Greenfield UI only: synthesize visual direction from founder/product constraints; do not default to generic AI SaaS styling.
 - Security assessment must be honest — do not downplay risks
 - Cost estimation must include at least 20% contingency buffer
 - If team lacks capability for a critical technology, flag it as a risk
+- If UI matters and the UI/UX DESIGN.md contract is missing, vague, lacks exact values, or lacks traceability, return `ADJUST`.
 - Keep ASCII diagrams simple — clarity over beauty
-- **Size budget**: Design artifact MUST be under 1200 words. Use tables for evaluations.
+- **Size budget**: Design artifact SHOULD stay under 1800 words. Use tables for evaluations; split optional `ui-design.md` only when the active store/user warrants it.
 - Return envelope per **Section D** from `skills/_shared/sdr-phase-common.md`.

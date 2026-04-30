@@ -43,6 +43,7 @@ Canonical Engram topic keys:
 | proposal | `sdr/{project}/proposal` |
 | spec | `sdr/{project}/spec` |
 | design | `sdr/{project}/design` |
+| UI design contract (optional split) | `sdr/{project}/ui-design` |
 | tasks | `sdr/{project}/tasks` |
 | verify report | `sdr/{project}/verify-report` |
 | source of truth | `sdr/{project}/source-of-truth` |
@@ -56,7 +57,8 @@ openspec/sdr/{project}/
 ├── explore.md
 ├── proposal.md
 ├── spec.md
-├── design.md
+├── design.md              # technical architecture; may embed UI/UX DESIGN.md contract
+├── ui-design.md           # optional split only when useful for large UI systems
 ├── tasks.md
 ├── verify-report.md
 └── source-of-truth.md
@@ -66,6 +68,12 @@ Tech-stack persistence:
 
 - `engram`: save as part of `sdr/{project}/design` or as `sdr/{project}/tech-stack`.
 - `openspec`/`hybrid`: write `openspec/sdr/{project}/tech-stack.md` only when a file-backed store is active.
+
+Design persistence:
+
+- Canonical `design` remains `sdr/{project}/design` / `openspec/sdr/{project}/design.md`.
+- `design.md` may include both technical architecture and a UI/UX DESIGN.md contract when the product has frontend/UI scope.
+- Use optional `ui-design` / `ui-design.md` only when the contract is split by store/user preference or the UI system is large enough to justify a separate file. Do not break canonical `design` traceability.
 
 ## Section D — Result Envelope
 
