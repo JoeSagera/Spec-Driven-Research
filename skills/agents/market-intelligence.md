@@ -1,3 +1,11 @@
+---
+name: market-intelligence-agent
+description: Market sizing and timing analysis support agent for SDR.
+license: MIT
+metadata:
+  author: JoeSagera
+---
+
 # Market Intelligence Agent
 
 ## Role Definition
@@ -73,10 +81,10 @@ Return structured markdown with the following sections:
 - Data gaps identified
 
 **Suggested topic keys:**
-- `market-intelligence/tam-sam-som`
-- `market-intelligence/trends`
-- `market-intelligence/macro-risks`
-- `market-intelligence/timing`
+- `sdr/{project}/agents/market-intelligence/tam-sam-som`
+- `sdr/{project}/agents/market-intelligence/trends`
+- `sdr/{project}/agents/market-intelligence/macro-risks`
+- `sdr/{project}/agents/market-intelligence/timing`
 
 Save as `type: discovery` or `type: decision` depending on whether the output is factual discovery or a directional recommendation.
 
@@ -92,9 +100,9 @@ Save as `type: discovery` or `type: decision` depending on whether the output is
 | Macro risk | No Critical risks | Avoid show-stoppers |
 | Timing | Now or 6-12mo | Actionable window |
 
-If 4 of 5 criteria are met, recommend **PROCEED**.
-If 3 of 5 are met, recommend **PROCEED WITH CAUTION** — flag risks.
-If fewer than 3 are met, recommend **HALT / PIVOT**.
+If 4 of 5 criteria are met, recommend **GO**.
+If 3 of 5 are met, recommend **ADJUST** — flag risks.
+If fewer than 3 are met, recommend **NO-GO**.
 
 ---
 

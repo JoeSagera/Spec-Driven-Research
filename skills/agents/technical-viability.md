@@ -1,3 +1,11 @@
+---
+name: technical-viability-agent
+description: Technical feasibility support agent for SDR.
+license: MIT
+metadata:
+  author: JoeSagera
+---
+
 # Technical Viability Agent
 
 ## Role Definition
@@ -86,11 +94,11 @@ Return structured markdown with the following sections:
 - Security gaps and remediation plans
 
 **Suggested topic keys:**
-- `technical-viability/stack`
-- `technical-viability/architecture`
-- `technical-viability/scalability`
-- `technical-viability/integrations`
-- `technical-viability/security`
+- `sdr/{project}/agents/technical-viability/stack`
+- `sdr/{project}/agents/technical-viability/architecture`
+- `sdr/{project}/agents/technical-viability/scalability`
+- `sdr/{project}/agents/technical-viability/integrations`
+- `sdr/{project}/agents/technical-viability/security`
 
 Save as `type: decision` for stack/architecture choices, `type: discovery` for risk findings.
 
@@ -108,7 +116,7 @@ Save as `type: decision` for stack/architecture choices, `type: discovery` for r
 
 If 4 of 5 criteria are met, recommend **BUILD**.
 If 3 of 5 are met, recommend **BUILD WITH POtS** — de-risk first.
-If fewer than 3 are met, recommend **REVISE SCOPE OR HALT**.
+If fewer than 3 are met, recommend **NO-GO**.
 
 ---
 

@@ -55,16 +55,16 @@ From the orchestrator:
 
 ## Execution and Persistence Contract
 
-> Follow **Section B** (retrieval) and **Section C** (persistence) from `skills/_shared/sdd-phase-common.md`.
+> Follow **Section B** (retrieval) and **Section C** (persistence) from `skills/_shared/sdr-phase-common.md`.
 
 - **engram**: Read ALL prior phase artifacts:
   - `sdr/{project}/explore` (Phase 1: Exploration)
   - `sdr/{project}/proposal` (Phase 2: Proposal)
   - `sdr/{project}/spec` (Phase 3: Specifications)
   - `sdr/{project}/design` (Phase 4: Design)
-  - `sdr/{project}/tasks` (Phase 5: Task Breakdown)
-  Save as `sdr/{project}/verify`.
-- **openspec**: Read and follow `skills/_shared/openspec-convention.md`. Save to `openspec/research/{project}/verify-report.md`.
+  - `sdr/{project}/tasks` (Phase 5: Coding Task Breakdown)
+  Save as `sdr/{project}/verify-report`.
+- **openspec**: Read and follow `skills/_shared/openspec-convention.md`. Save to `openspec/sdr/{project}/verify-report.md`.
 - **hybrid**: Follow BOTH conventions — persist to Engram AND write `verify-report.md` to filesystem.
 - **none**: Return the verification report inline only. Never write files.
 
@@ -72,7 +72,7 @@ From the orchestrator:
 
 ### Step 1: Load Skills
 
-Follow **Section A** from `skills/_shared/sdd-phase-common.md`.
+Follow **Section A** from `skills/_shared/sdr-phase-common.md`.
 
 ### Step 2: Retrieve ALL Prior Artifacts
 
@@ -122,7 +122,7 @@ For every requirement traced in the spec, verify it has a confidence tier:
 | [Req: user-confirmed] | Stated by the user but not in a formal doc | Treat as authoritative — mark as confirmed |
 | [Req: inferred] | Deduced from code, tests, or behavior | MUST be ≤20% of total requirements; flag for user review if higher |
 
-**Rule**: If >20% of requirements in the spec are [inferred], downgrade the Buildability Gate to NO-GO with Conditions until the user reviews and promotes them to [formal] or [user-confirmed].
+**Rule**: If >20% of requirements in the spec are [inferred], downgrade the Buildability Gate to ADJUST until the user reviews and promotes them to [formal] or [user-confirmed].
 
 ### Step 4: Validate Coherence Between Spec and Design
 
@@ -286,9 +286,9 @@ Decision reasoning MUST include:
 
 ### Step 10: Persist Verification Report
 
-Follow **Section C** from `skills/_shared/sdd-phase-common.md`.
-- artifact: `verify`
-- topic_key: `sdr/{project}/verify`
+Follow **Section C** from `skills/_shared/sdr-phase-common.md`.
+- artifact: `verify-report`
+- topic_key: `sdr/{project}/verify-report`
 - type: `architecture`
 - scope: `project`
 
@@ -370,14 +370,14 @@ Return to the orchestrator:
 - WARNINGS = should resolve but may not block if properly acknowledged and mitigated
 - SUGGESTIONS = improvements, not blockers
 - If a phase artifact is MISSING, that is automatically a CRITICAL issue unless the orchestrator explicitly scoped it out
-- In `openspec` mode, ALWAYS save the report to `openspec/research/{project}/verify-report.md`
-- Return envelope per **Section D** from `skills/_shared/sdd-phase-common.md`
+- In `openspec` mode, ALWAYS save the report to `openspec/sdr/{project}/verify-report.md`
+- Return envelope per **Section D** from `skills/_shared/sdr-phase-common.md`
 
 ## Final Result Contract
 
 The Validation Agent's output is BINDING for the SDR pipeline:
 
-- **GO**: The project is cleared to proceed to implementation. The orchestrator may launch SDD phases (sdd-apply, sdd-verify, sdd-archive).
+- **GO**: The project is cleared to produce the final SDR Source of Truth, then hand off to `sdd-propose` if the founder chooses implementation.
 - **ADJUST**: The project MUST return to the specified SDR phase. The orchestrator SHALL re-run the indicated phase, then re-run sdr-verify. No implementation may begin until a subsequent GO is issued.
 - **NO-GO**: The project is halted. The orchestrator SHALL NOT proceed to implementation. A new SDR cycle (starting from sdr-explore) or project termination is required.
 

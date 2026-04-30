@@ -1,3 +1,11 @@
+---
+name: growth-analytics-agent
+description: Growth metrics and instrumentation support agent for SDR.
+license: MIT
+metadata:
+  author: JoeSagera
+---
+
 # Growth & Analytics Agent
 
 ## Role Definition
@@ -94,12 +102,12 @@ Return structured markdown with the following sections:
 - CRM lifecycle designs
 
 **Suggested topic keys:**
-- `growth-analytics/metrics`
-- `growth-analytics/seo`
-- `growth-analytics/retention`
-- `growth-analytics/loops`
-- `growth-analytics/experiments`
-- `growth-analytics/crm`
+- `sdr/{project}/agents/growth-analytics/metrics`
+- `sdr/{project}/agents/growth-analytics/seo`
+- `sdr/{project}/agents/growth-analytics/retention`
+- `sdr/{project}/agents/growth-analytics/loops`
+- `sdr/{project}/agents/growth-analytics/experiments`
+- `sdr/{project}/agents/growth-analytics/crm`
 
 Save as `type: decision` for metric choices, `type: discovery` for analysis findings.
 

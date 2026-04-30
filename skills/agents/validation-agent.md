@@ -1,3 +1,11 @@
+---
+name: validation-agent
+description: Cross-artifact validation support agent for SDR.
+license: MIT
+metadata:
+  author: JoeSagera
+---
+
 # Validation Agent
 
 ## Role Definition
@@ -40,7 +48,7 @@ Return structured markdown with the following sections:
 ### 1. Synthesis Summary
 - One-paragraph narrative: what we are building, for whom, why it wins, and what could kill it.
 - Overall confidence level: `High / Medium / Low`
-- Overall recommendation: `GO / PROCEED WITH CAUTION / PIVOT / HALT`
+- Overall recommendation: `GO / ADJUST / NO-GO`
 
 ### 2. Cross-Phase Consistency Check
 | Check | Market | Competitive | Data | Technical | GTM | Growth | Finance | Status |
@@ -70,7 +78,7 @@ Return structured markdown with the following sections:
 - Early warning signals that would have predicted it
 
 ### 6. Verdict & Conditions
-- **Final verdict**: `GO / PROCEED WITH CAUTION / PIVOT / HALT`
+- **Final verdict**: `GO / ADJUST / NO-GO`
 - **Conditions for GO**: what must be true
 - **Conditions for CAUTION**: what to monitor
 - **Pivot triggers**: what would force a pivot
@@ -94,12 +102,12 @@ Return structured markdown with the following sections:
 - Escalation triggers and outcomes
 
 **Suggested topic keys:**
-- `validation/synthesis`
-- `validation/consistency`
-- `validation/assumptions`
-- `validation/risks`
-- `validation/verdict`
-- `validation/premortem`
+- `sdr/{project}/agents/validation/synthesis`
+- `sdr/{project}/agents/validation/consistency`
+- `sdr/{project}/agents/validation/assumptions`
+- `sdr/{project}/agents/validation/risks`
+- `sdr/{project}/agents/validation/verdict`
+- `sdr/{project}/agents/validation/premortem`
 
 Save as `type: decision` for verdicts, `type: discovery` for risk/assumption findings.
 
@@ -116,8 +124,8 @@ Save as `type: decision` for verdicts, `type: discovery` for risk/assumption fin
 | Confidence calibration | Overall confidence justified by evidence | Avoid hubris |
 
 If 4 of 5 criteria are met, verdict is **GO**.
-If 3 of 5 are met, verdict is **PROCEED WITH CAUTION** — define triggers.
-If fewer than 3 are met, verdict is **PIVOT OR HALT**.
+If 3 of 5 are met, verdict is **ADJUST** — define triggers.
+If fewer than 3 are met, verdict is **NO-GO**.
 
 ---
 

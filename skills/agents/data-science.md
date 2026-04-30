@@ -1,3 +1,11 @@
+---
+name: data-science-agent
+description: Data quality and quantitative evidence support agent for SDR.
+license: MIT
+metadata:
+  author: JoeSagera
+---
+
 # Data Science Agent
 
 ## Role Definition
@@ -86,11 +94,11 @@ Return structured markdown with the following sections:
 - Data limitations and risks identified
 
 **Suggested topic keys:**
-- `data-science/datasets`
-- `data-science/hypotheses`
-- `data-science/models`
-- `data-science/causal-inference`
-- `data-science/uncertainty`
+- `sdr/{project}/agents/data-science/datasets`
+- `sdr/{project}/agents/data-science/hypotheses`
+- `sdr/{project}/agents/data-science/models`
+- `sdr/{project}/agents/data-science/causal-inference`
+- `sdr/{project}/agents/data-science/uncertainty`
 
 Save as `type: discovery` for findings, `type: decision` when a model or test result drives a go/no-go.
 
@@ -106,9 +114,9 @@ Save as `type: discovery` for findings, `type: decision` when a model or test re
 | Model performance | Beats baseline / benchmark | Value add |
 | Uncertainty bounded | CI reported and acceptable | Decision-ready |
 
-If 4 of 5 criteria are met, recommend **PROCEED WITH CONFIDENCE**.
-If 3 of 5 are met, recommend **PROCEED WITH CAVEATS** — note limitations prominently.
-If fewer than 3 are met, recommend **DO NOT PROCEED** — request better data or simpler question.
+If 4 of 5 criteria are met, recommend **GO**.
+If 3 of 5 are met, recommend **ADJUST** — note limitations prominently.
+If fewer than 3 are met, recommend **NO-GO** — request better data or simpler question.
 
 ---
 

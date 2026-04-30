@@ -1,3 +1,11 @@
+---
+name: competitive-analysis-agent
+description: Competitive landscape and positioning support agent for SDR.
+license: MIT
+metadata:
+  author: JoeSagera
+---
+
 # Competitive Analysis Agent
 
 ## Role Definition
@@ -82,11 +90,11 @@ Return structured markdown with the following sections:
 - Competitive response predictions and outcomes
 
 **Suggested topic keys:**
-- `competitive-analysis/landscape`
-- `competitive-analysis/feature-matrix`
-- `competitive-analysis/gaps`
-- `competitive-analysis/positioning`
-- `competitive-analysis/moat`
+- `sdr/{project}/agents/competitive-analysis/landscape`
+- `sdr/{project}/agents/competitive-analysis/feature-matrix`
+- `sdr/{project}/agents/competitive-analysis/gaps`
+- `sdr/{project}/agents/competitive-analysis/positioning`
+- `sdr/{project}/agents/competitive-analysis/moat`
 
 Save as `type: discovery` for factual competitive data, `type: decision` for positioning strategy.
 
@@ -102,9 +110,9 @@ Save as `type: discovery` for factual competitive data, `type: decision` for pos
 | Incumbent response risk | Not "outspend" from dominant player | Survival probability |
 | Pricing fit | Within ±30% of market median | Avoids extreme positioning |
 
-If 4 of 5 criteria are met, recommend **PROCEED**.
-If 3 of 5 are met, recommend **PROCEED WITH CAUTION** — requires sharper positioning or moat building.
-If fewer than 3 are met, recommend **REPOSITION OR HALT**.
+If 4 of 5 criteria are met, recommend **GO**.
+If 3 of 5 are met, recommend **ADJUST** — requires sharper positioning or moat building.
+If fewer than 3 are met, recommend **NO-GO**.
 
 ---
 

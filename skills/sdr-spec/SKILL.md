@@ -26,10 +26,10 @@ From the orchestrator:
 
 ## Execution and Persistence Contract
 
-> Follow **Section B** (retrieval) and **Section C** (persistence) from `skills/_shared/sdd-phase-common.md`.
+> Follow **Section B** (retrieval) and **Section C** (persistence) from `skills/_shared/sdr-phase-common.md`.
 
 - **engram**: Read `sdr/{project}/proposal` (required). Save the complete PRD as `sdr/{project}/spec`.
-- **openspec**: Read and follow `skills/_shared/openspec-convention.md`. Write PRD to `openspec/projects/{project}/prd.md`.
+- **openspec**: Read and follow `skills/_shared/openspec-convention.md`. Write PRD to `openspec/sdr/{project}/spec.md`.
 - **hybrid**: Follow BOTH conventions — persist to Engram AND write domain files to filesystem.
 - **none**: Return result only. Never create or modify project files.
 
@@ -37,7 +37,7 @@ From the orchestrator:
 
 ### Step 1: Load Skills
 
-Follow **Section A** from `skills/_shared/sdd-phase-common.md`.
+Follow **Section A** from `skills/_shared/sdr-phase-common.md`.
 
 ### Step 2: Retrieve the Business Proposal
 
@@ -52,7 +52,7 @@ Do NOT use search previews as source material. Read the full proposal before pro
 
 ### Step 3: Decompose the Proposal
 
-Extract and categorize from the proposal:
+Extract and categorize from the proposal and founder intake:
 
 | Section | What to Extract |
 |---------|-----------------|
@@ -60,6 +60,7 @@ Extract and categorize from the proposal:
 | Solution Vision | High-level capabilities, key differentiators |
 | Market / Business | Success metrics, KPIs, revenue model, timeline |
 | Constraints | Budget, compliance, technical limits, team capacity |
+| Founder Fit | launch quality, risk tolerance, AI workflow expectations |
 
 ### Step 3b: Reframe Vague Requirements into Concrete Success Criteria
 
@@ -241,7 +242,7 @@ Categories to cover:
 
 ### Gate Verdict
 - **GO**: All MUST features are buildable with current resources. Proceed to design.
-- **NO-GO with Conditions**: Some MUST features require additional resources. List blockers and conditions for reassessment.
+- **ADJUST**: Some MUST features require additional resources. List blockers and conditions for reassessment.
 - **NO-GO**: Core value proposition is not buildable. Recommend proposal revision or pivot.
 ```
 
@@ -249,7 +250,7 @@ Categories to cover:
 
 **This step is MANDATORY — do NOT skip it.**
 
-Follow **Section C** from `skills/_shared/sdd-phase-common.md`.
+Follow **Section C** from `skills/_shared/sdr-phase-common.md`.
 - artifact: `spec`
 - topic_key: `sdr/{project}/spec`
 - type: `architecture`
@@ -274,7 +275,7 @@ Return to the orchestrator:
 | Success Metrics | {count} KPIs | {key metrics} |
 
 ### Buildability Gate
-- **Verdict**: {GO / NO-GO with Conditions / NO-GO}
+- **Verdict**: {GO / ADJUST / NO-GO}
 - **Blockers**: {none or list}
 - **Risks**: {none or list}
 
@@ -296,7 +297,7 @@ Ready for Phase 4 (sdr-design). If design already exists, ready for Phase 5 (sdr
 - Keep scenarios TESTABLE — someone should be able to write an automated test from each one.
 - Apply any `rules.specs` from `openspec/config.yaml` when in openspec/hybrid mode.
 - **Size budget**: PRD artifact MUST be under 800 words for the summary envelope. Full PRD can be longer, but the Engram artifact should be concise. Prefer tables over narrative.
-- Return envelope per **Section D** from `skills/_shared/sdd-phase-common.md`.
+- Return envelope per **Section D** from `skills/_shared/sdr-phase-common.md`.
 
 ## RFC 2119 Keywords Quick Reference
 

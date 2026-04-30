@@ -1,3 +1,11 @@
+---
+name: go-to-market-agent
+description: GTM research support agent for SDR proposal inputs.
+license: MIT
+metadata:
+  author: JoeSagera
+---
+
 # Go-to-Market Agent
 
 ## Role Definition
@@ -87,11 +95,11 @@ Return structured markdown with the following sections:
 - Funnel performance data post-launch
 
 **Suggested topic keys:**
-- `go-to-market/channels`
-- `go-to-market/launch-plan`
-- `go-to-market/content`
-- `go-to-market/messaging`
-- `go-to-market/partnerships`
+- `sdr/{project}/agents/go-to-market/channels`
+- `sdr/{project}/agents/go-to-market/launch-plan`
+- `sdr/{project}/agents/go-to-market/content`
+- `sdr/{project}/agents/go-to-market/messaging`
+- `sdr/{project}/agents/go-to-market/partnerships`
 
 Save as `type: decision` for strategy choices, `type: discovery` for channel test results.
 

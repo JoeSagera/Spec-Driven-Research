@@ -1,6 +1,18 @@
+---
+title: SDR Agents Reference
+description: Reference for SDR support agents and their bounded outputs.
+license: MIT
+metadata:
+  author: JoeSagera
+---
+
 # SDR Agents Reference
 
-The 8 specialized research agents in the Spec-Driven Research (SDR) framework. Each agent has a distinct role, produces structured outputs, and saves findings to Engram for cross-referencing.
+The 8 specialized research agents in the Spec-Driven Research (SDR) framework. Each agent has a distinct role, produces structured outputs, and saves findings to project-scoped Engram keys.
+
+Canonical decision vocabulary for all agent outputs is `GO | ADJUST | NO-GO`. Legacy phrases such as “proceed,” “pivot,” or “caution” must be mapped into that vocabulary before phase results are returned.
+
+Agent artifacts must use `sdr/{project}/agents/{agent}/{artifact}`.
 
 > **Usage:** The SDR Orchestrator delegates to these agents automatically during the `design` and `tasks` phases. You do not invoke them directly — but understanding what each produces helps you interpret results and ask better questions.
 
@@ -68,7 +80,7 @@ Senior market research analyst specializing in TAM/SAM/SOM sizing, industry tren
 | Macro risk | No critical risks | Avoid show-stoppers |
 | Timing | Now or 6-12 months | Actionable window |
 
-**Verdict rule:** 4/5 met → **PROCEED** | 3/5 met → **PROCEED WITH CAUTION** | <3 → **HALT / PIVOT**
+**Verdict rule:** 4/5 met → **GO** | 3/5 met → **ADJUST** | <3 → **NO-GO**
 
 ---
 
@@ -120,7 +132,7 @@ Strategic product intelligence specialist. Maps competitors, constructs feature 
 | Incumbent response risk | Not "outspend" from dominant player | Survival probability |
 | Pricing fit | Within ±30% of market median | Avoids extreme positioning |
 
-**Verdict rule:** 4/5 met → **PROCEED** | 3/5 → **PROCEED WITH CAUTION** | <3 → **REPOSITION OR HALT**
+**Verdict rule:** 4/5 met → **GO** | 3/5 → **ADJUST** | <3 → **NO-GO**
 
 ---
 
@@ -172,7 +184,7 @@ Senior quantitative researcher. Validates datasets, designs experiments, tests h
 | Model performance | Beats baseline/benchmark | Value add |
 | Uncertainty bounded | CI reported and acceptable | Decision-ready |
 
-**Verdict rule:** 4/5 met → **PROCEED WITH CONFIDENCE** | 3/5 → **PROCEED WITH CAVEATS** | <3 → **DO NOT PROCEED**
+**Verdict rule:** 4/5 met → **GO** | 3/5 → **ADJUST** | <3 → **NO-GO**
 
 ---
 
@@ -225,7 +237,7 @@ Principal engineer and systems architect. Evaluates whether the product can be b
 | Security gaps | All high gaps have remediation plan | Compliance |
 | Team match | Adequate or Strong | Execution feasibility |
 
-**Verdict rule:** 4/5 met → **BUILD** | 3/5 → **BUILD WITH PoTS** | <3 → **REVISE SCOPE OR HALT**
+**Verdict rule:** 4/5 met → **GO** | 3/5 → **ADJUST** | <3 → **NO-GO**
 
 ---
 
@@ -389,7 +401,7 @@ Financial analyst and startup CFO advisor. Models unit economics, forecasts reve
 | Runway | > 12 months | Survival buffer |
 | Path to milestone | Clear with base case | Fundability |
 
-**Verdict rule:** 4/5 met → **PROCEED / RAISE / SCALE** | 3/5 → **PROCEED WITH COST DISCIPLINE** | <3 → **RESTRUCTURE MODEL OR REDUCE BURN**
+**Verdict rule:** 4/5 met → **GO** | 3/5 → **ADJUST** | <3 → **NO-GO**
 
 ---
 
@@ -417,7 +429,7 @@ Chief strategist and red team. Performs cross-phase consistency checks, synthesi
 | Assumption Register | All key assumptions with source, confidence, impact-if-wrong, mitigation, owner |
 | Risk Heat Map | Aggregated risks across domains with likelihood, impact, trend, status |
 | Pre-Mortem | Failure story in past tense with root causes and early warning signals |
-| Verdict & Conditions | Final verdict (GO / CAUTION / PIVOT / HALT) with conditions and triggers |
+| Verdict & Conditions | Final verdict (GO / ADJUST / NO-GO) with conditions and triggers |
 | Escalation & Review Plan | Review cadence, metrics to watch, re-evaluation triggers |
 
 ### Engram Keys
@@ -441,7 +453,7 @@ Chief strategist and red team. Performs cross-phase consistency checks, synthesi
 | Pre-mortem | Failure story has plausible path + early warnings | Paranoia calibration |
 | Confidence calibration | Overall confidence justified by evidence | Avoid hubris |
 
-**Verdict rule:** 4/5 met → **GO** | 3/5 → **PROCEED WITH CAUTION** | <3 → **PIVOT OR HALT**
+**Verdict rule:** 4/5 met → **GO** | 3/5 → **ADJUST** | <3 → **NO-GO**
 
 ---
 
@@ -492,14 +504,14 @@ When research is complete and you want to build:
 ```
 SDR Pipeline                           SDD Pipeline
 ──────────                             ──────────
-explore → propose → spec → design → tasks → verify
-                              │
-                              └─ (handoff) → sdd-propose
-                                                   │
-                                                   └── sdd-orchestrator
+init → explore → proposal → spec → design → tasks → verify → source-of-truth
+                                                               │
+                                                               └─ (handoff) → sdd-propose
+                                                                                    │
+                                                                                    └── sdd-orchestrator
 ```
 
-The SDR `spec` artifact becomes pre-loaded context for `sdd-propose`. You don't lose any research context.
+The SDR `source-of-truth` artifact becomes pre-loaded context for `sdd-propose`. You don't lose any research context.
 
 ---
 

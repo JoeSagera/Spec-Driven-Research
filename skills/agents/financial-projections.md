@@ -1,3 +1,11 @@
+---
+name: financial-projections-agent
+description: Financial assumptions support agent for SDR proposal inputs.
+license: MIT
+metadata:
+  author: JoeSagera
+---
+
 # Financial Projections Agent
 
 ## Role Definition
@@ -107,11 +115,11 @@ Show how Month 24 ARR changes with:
 - Funding requirements and timing
 
 **Suggested topic keys:**
-- `financial-projections/unit-economics`
-- `financial-projections/revenue-forecast`
-- `financial-projections/burn-runway`
-- `financial-projections/scenarios`
-- `financial-projections/funding`
+- `sdr/{project}/agents/financial-projections/unit-economics`
+- `sdr/{project}/agents/financial-projections/revenue-forecast`
+- `sdr/{project}/agents/financial-projections/burn-runway`
+- `sdr/{project}/agents/financial-projections/scenarios`
+- `sdr/{project}/agents/financial-projections/funding`
 
 Save as `type: decision` for funding recommendations, `type: discovery` for model findings.
 
@@ -127,8 +135,8 @@ Save as `type: decision` for funding recommendations, `type: discovery` for mode
 | Runway | > 12 months | Survival buffer |
 | Path to milestone | Clear with base case | Fundability |
 
-If 4 of 5 criteria are met, recommend **PROCEED / RAISE / SCALE**.
-If 3 of 5 are met, recommend **PROCEED WITH COST DISCIPLINE**.
+If 4 of 5 criteria are met, recommend **GO**.
+If 3 of 5 are met, recommend **ADJUST** with cost discipline.
 If fewer than 3 are met, recommend **RESTRUCTURE MODEL OR REDUCE BURN**.
 
 ---

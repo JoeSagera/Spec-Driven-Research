@@ -2,3 +2,7 @@
 
 # Research & knowledge sources - training data not meant for GitHub
 research/
+!research/
+research/*
+!research/synthesis/
+!research/synthesis/**

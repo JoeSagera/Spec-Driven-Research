@@ -8,7 +8,7 @@ Get from idea to validated research in minutes with the Spec-Driven Research (SD
 
 SDR is a structured pipeline for running multi-agent research. Instead of one generic chat, you delegate to specialized agents — Market Intelligence, Competitive Analysis, Technical Viability, and more — each producing standardized outputs that feed into the next phase.
 
-Think of it as CI/CD for research: **explore → propose → spec → design → tasks → verify**, with a decision gate after every phase.
+Think of it as CI/CD for founder research: **init → explore → proposal → spec → design → tasks → verify → source-of-truth → sdd-propose**, with a decision gate after every phase.
 
 ---
 
@@ -27,8 +27,9 @@ Example:
 
 What happens:
 - The orchestrator starts a session
-- Launches **sdr-explore** to investigate the domain
-- Then launches **sdr-propose** to define scope and research questions
+- Launches **sdr-init** for founder intake and constraints
+- Then launches **sdr-explore** to investigate the product category and market shape
+- Then launches **sdr-propose** to define the build direction
 - Stops and asks you: **GO**, **ADJUST**, or **NO-GO**?
 
 ### 2. Choose execution mode
@@ -54,7 +55,7 @@ The orchestrator reads `sdr/ai-contract-review/state` from Engram and picks up e
 /sdr-ff ai-contract-review
 ```
 
-Runs all six phases sequentially. Stops automatically if any phase returns `ADJUST` or `NO-GO`.
+Runs the full SDR chain sequentially. Stops automatically if any phase returns `ADJUST` or `NO-GO`.
 
 ---
 
@@ -62,9 +63,9 @@ Runs all six phases sequentially. Stops automatically if any phase returns `ADJU
 
 | Command | Purpose | Stops For | Best For |
 |---------|---------|-----------|----------|
-| `/sdr-new <name>` | Start fresh; runs explore + propose | Interactive mode asks GO/ADJUST/NO-GO | New ideas, unknown domains |
+| `/sdr-new <name>` | Start fresh; runs init + explore + proposal | Interactive mode asks GO/ADJUST/NO-GO | New ideas, unknown domains |
 | `/sdr-continue [name]` | Resume from last completed phase | Nothing; seamless continuation | Multi-session research |
-| `/sdr-ff <name>` | Run full pipeline: explore → verify | ADJUST, NO-GO, errors | Well-understood domains, CI-like runs |
+| `/sdr-ff <name>` | Run full pipeline: init → explore → proposal → spec → design → tasks → verify → source-of-truth | ADJUST, NO-GO, errors | Well-understood domains, CI-like runs |
 
 > **Pro tip:** You can switch from Interactive to Automatic mid-project, but the orchestrator will ask you to confirm.
 
@@ -73,20 +74,19 @@ Runs all six phases sequentially. Stops automatically if any phase returns `ADJU
 ## What Happens in Each Phase
 
 ```
-explore ──→ propose ──→ spec ──→ design ──→ tasks ──→ verify
-   ↑           ↑          ↑         ↑         ↑          ↑
-   │           │          │         │         │          │
-   └───────────┴──────────┴─────────┴─────────┴──── NO-GO → archive
+init ──→ explore ──→ proposal ──→ spec ──→ design ──→ tasks ──→ verify ──→ source-of-truth ──→ sdd-propose
 ```
 
 | Phase | What the agent does | What you get | Typical Duration |
 |-------|---------------------|--------------|------------------|
-| **explore** | Scans domain, identifies knowledge gaps, maps stakeholders | Research landscape + gap analysis | 1-2 min |
-| **propose** | Defines research questions, scope, approach, risks | Research proposal with risk assessment | 1-2 min |
+| **init** | Captures founder idea, constraints, success definition | Founder intake + project charter | 1 min |
+| **explore** | Scans product category, market shape, competitors, user signals | Research landscape + gap analysis | 1-2 min |
+| **proposal** | Defines product direction, scope, risks, founder fit | Product proposal with risk assessment | 1-2 min |
 | **spec** | Writes structured requirements and success criteria | Spec sheet with acceptance criteria | 1-2 min |
 | **design** | Designs methodology, agent selection, data sources | Research design document | 1-2 min |
-| **tasks** | Breaks work into checkable tasks with owners | Task list with dependencies | 1 min |
+| **tasks** | Breaks product requirements into implementation-ready vertical slices | Coding task list with dependencies and tests | 1 min |
 | **verify** | Cross-checks consistency, validates assumptions | Verification report + final verdict | 1-2 min |
+| **source-of-truth** | Consolidates verified SDR artifacts for SDD | Coding-ready Source of Truth | 1 min |
 
 Each phase saves artifacts to Engram. Nothing is lost.
 
@@ -101,11 +101,13 @@ Every artifact is saved under `sdr/{project-name}/{phase}`:
 | Phase | Topic Key | Example |
 |-------|-----------|---------|
 | explore | `sdr/{project}/explore` | `sdr/ai-contract-review/explore` |
-| propose | `sdr/{project}/propose` | `sdr/ai-contract-review/propose` |
+| init | `sdr-init/{project}` | `sdr-init/ai-contract-review` |
+| proposal | `sdr/{project}/proposal` | `sdr/ai-contract-review/proposal` |
 | spec | `sdr/{project}/spec` | `sdr/ai-contract-review/spec` |
 | design | `sdr/{project}/design` | `sdr/ai-contract-review/design` |
 | tasks | `sdr/{project}/tasks` | `sdr/ai-contract-review/tasks` |
-| verify | `sdr/{project}/verify` | `sdr/ai-contract-review/verify` |
+| verify report | `sdr/{project}/verify-report` | `sdr/ai-contract-review/verify-report` |
+| source of truth | `sdr/{project}/source-of-truth` | `sdr/ai-contract-review/source-of-truth` |
 | state | `sdr/{project}/state` | `sdr/ai-contract-review/state` |
 | config | `sdr/{project}/config` | `sdr/ai-contract-review/config` |
 
@@ -127,7 +129,7 @@ mem_search(query: "sdr/ai-contract-review")
 | Mode | Saves To | Best For |
 |------|----------|----------|
 | `engram` (default) | Engram memory only | Quick research, ephemeral projects |
-| `openspec` | Files in `openspec/research/{project}/` | Team review, audit trail |
+| `openspec` | Files in `openspec/sdr/{project}/` | Team review, audit trail |
 | `hybrid` | Both Engram + filesystem | Production research, compliance |
 | `none` | Inline only, no persistence | One-off questions |
 
@@ -181,24 +183,28 @@ You want to build **AI-powered contract review for mid-market legal teams**.
 > Key findings: Legal tech TAM ~$4B, AI adoption in legal is early (innovators stage), mid-market underserved vs. enterprise.  
 > Decision gate: **GO**
 
-**3. Propose phase completes**
-> Research questions defined: (1) Market size for mid-market segment, (2) Competitive gap analysis, (3) Technical feasibility of clause extraction, (4) GTM through legal tech consultants.  
+**3. Proposal phase completes**
+> Product direction defined: mid-market legal teams need fast contract-risk triage; beachhead scope focuses on clause extraction, risk summaries, and review workflow fit.  
 > Decision gate: **GO**
 
 **4. Spec phase completes**
-> Requirements: TAM/SAM/SOM with confidence intervals, feature matrix vs. 5 competitors, PoT for LLM clause extraction, 90-day GTM plan, 24-month financial model.  
+> Coding-ready requirements: upload contracts, extract clauses, classify risk, show reviewer action states, and expose measurable acceptance criteria for accuracy, latency, and auditability.  
 > Decision gate: **GO**
 
 **5. Design phase completes**
-> Agent allocation: Market Intelligence (TAM), Competitive Analysis (feature matrix), Technical Viability (LLM PoT), Go-to-Market (channel strategy), Financial Projections (unit economics).  
+> Technical design: conceptual services for ingestion, extraction, risk scoring, reviewer workflow, storage, and observability; required PoC validates LLM clause extraction accuracy.  
 > Decision gate: **GO**
 
 **6. Tasks phase completes**
-> 23 tasks across 5 agents with dependencies mapped.  
+> Coding task breakdown: implementation-ready vertical slices with dependencies and test expectations, scoped only to product behavior that must be built.  
 > Decision gate: **GO**
 
 **7. Verify phase completes**
-> Cross-check: Market Intelligence TAM ($500M) aligns with Financial SOM ($12M Year 3). Competitive gap confirmed by Technical Viability assessment.  
+> `verify-report` cross-check: proposal, spec, design, and tasks are coherent; all MUST requirements trace to design decisions and implementation tasks.  
+> Decision gate: **GO**
+
+**8. Source-of-truth phase completes**
+> Final `source-of-truth` consolidates verified SDR artifacts into a coding-ready package for `sdd-propose`.  
 > Decision gate: **GO** → Research complete.
 
 ### What you now have
@@ -206,12 +212,13 @@ You want to build **AI-powered contract review for mid-market legal teams**.
 Search Engram:
 ```
 sdr/ai-contract-review/explore   → Domain landscape
-sdr/ai-contract-review/propose   → Research questions & scope
+sdr/ai-contract-review/proposal  → Product direction & scope
 sdr/ai-contract-review/spec      → Requirements & acceptance criteria
 sdr/ai-contract-review/design    → Methodology & agent selection
-sdr/ai-contract-review/tasks   → Task breakdown with dependencies
-sdr/ai-contract-review/verify    → Consistency check & final verdict
-sdr/ai-contract-review/state     → Full project state & decisions
+sdr/ai-contract-review/tasks           → Coding task breakdown with dependencies
+sdr/ai-contract-review/verify-report   → Consistency check & final verdict
+sdr/ai-contract-review/source-of-truth → Coding-ready handoff package for SDD
+sdr/ai-contract-review/state           → Full project state & decisions
 ```
 
 ### Handoff to implementation
@@ -221,7 +228,7 @@ When you're ready to build:
 Convert this research into an SDD change?
 ```
 
-The orchestrator hands the SDR `spec` artifact to the SDD pipeline as pre-loaded context for `sdd-propose`.
+The orchestrator hands the SDR `source-of-truth` artifact to the SDD pipeline as pre-loaded context for `sdd-propose`. SDR never jumps directly to `sdd-apply`.
 
 ---
 
