@@ -24,4 +24,4 @@ Required tracked phase files when running in `openspec` or `hybrid` mode:
 - `verify-report.md`
 - `source-of-truth.md`
 
-Raw external research dumps may remain ignored. Curated, human-reviewable synthesis must be tracked separately under `research/synthesis/`.
+Raw external research dumps and local experiments remain ignored under `research/`; durable SDR methodology belongs in tracked skills, shared contracts, or README documentation.

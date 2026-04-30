@@ -2,6 +2,8 @@
 
 Spec-Driven Research (SDR) is a founder-first pre-development workflow for validating and planning a digital startup, app, or web product before writing production code.
 
+This project is open source under the [MIT License](./LICENSE). You can use, modify, fork, adapt, and redistribute SDR for your own projects or workflows.
+
 It is inspired by Gentle-AI SDD, but it operates one step earlier: SDR turns founder intent, constraints, market evidence, product requirements, technical feasibility, and implementation slices into a coding-ready **Source of Truth** that can be handed to SDD.
 
 SDR is **not** a generic business-plan generator. Business, market, financial, and go-to-market research only matter here when they improve the product decision and make the eventual build clearer, safer, and more realistic for a solo founder / One Man Startup.
@@ -105,8 +107,7 @@ Local runtime or private assistant state may live outside tracked artifacts; for
 │   ├── sdr-source-of-truth/SKILL.md   # Final SDR handoff phase
 │   ├── agents/                        # Bounded specialist research agents
 │   └── _shared/                       # Shared phase and storage contracts
-├── research/synthesis/
-│   └── sdr-methodology.md             # Curated methodology decisions
+├── research/                           # Local ignored experiments and research dumps
 ├── .atl/
 │   └── skill-registry.md              # Minimal skill resolution registry
 └── AGENTS.md                          # Repository-level agent instructions
@@ -118,7 +119,6 @@ Start here:
 
 - [SDR Quickstart Guide](./skills/SDR-QUICKSTART.md)
 - [SDR Agents Reference](./skills/SDR-AGENTS-README.md)
-- [SDR Methodology Synthesis](./research/synthesis/sdr-methodology.md)
 - [Skill Registry](./.atl/skill-registry.md)
 
 Core commands documented by the quickstart:
@@ -128,6 +128,12 @@ Core commands documented by the quickstart:
 /sdr-continue [project-name]
 /sdr-ff <project-name>
 ```
+
+## License and reuse
+
+SDR is released under the MIT License so individuals, founders, teams, and AI workflow builders can freely use it, adapt it, and build their own research systems from it.
+
+The only requirement is preserving the license notice when redistributing substantial portions of the project. See [LICENSE](./LICENSE).
 
 ## Current status
 

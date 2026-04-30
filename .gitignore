@@ -1,8 +1,4 @@
 .gga
 
-# Research & knowledge sources - training data not meant for GitHub
+# Local research experiments and external knowledge dumps are not tracked
 research/
-!research/
-research/*
-!research/synthesis/
-!research/synthesis/**
