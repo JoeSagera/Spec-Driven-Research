@@ -1,6 +1,6 @@
 {
   "sdr-orchestrator": {
-    "description": "SDR Orchestrator - coordinates research phases",
+    "description": "SDR Orchestrator - coordinates token-efficient PRD phases",
     "mode": "primary",
     "model": "openai/gpt-5.5",
     "prompt": "{file:~/.config/opencode/prompts/sdr/sdr-orchestrator.md}",
@@ -19,7 +19,7 @@
     }
   },
   "sdr-init": {
-    "description": "SDR founder intake and setup",
+    "description": "SDR founder intake and internal evidence setup",
     "hidden": true,
     "mode": "subagent",
     "model": "openai/gpt-5.5",
@@ -27,7 +27,7 @@
     "tools": { "bash": true, "read": true, "write": true, "edit": true, "glob": true, "grep": true, "webfetch": true, "engram_mem_save": true, "engram_mem_search": true, "engram_mem_get_observation": true }
   },
   "sdr-explore": {
-    "description": "SDR market and product exploration",
+    "description": "SDR market and product exploration evidence",
     "hidden": true,
     "mode": "subagent",
     "model": "openai/gpt-5.5",
@@ -35,7 +35,7 @@
     "tools": { "read": true, "glob": true, "grep": true, "webfetch": true, "engram_mem_save": true, "engram_mem_search": true, "engram_mem_get_observation": true }
   },
   "sdr-propose": {
-    "description": "SDR proposal synthesis",
+    "description": "SDR proposal evidence synthesis",
     "hidden": true,
     "mode": "subagent",
     "model": "openai/gpt-5.5",
@@ -43,7 +43,7 @@
     "tools": { "read": true, "glob": true, "grep": true, "engram_mem_save": true, "engram_mem_search": true, "engram_mem_get_observation": true }
   },
   "sdr-spec": {
-    "description": "SDR product specification writer",
+    "description": "SDR product requirement evidence writer",
     "hidden": true,
     "mode": "subagent",
     "model": "openai/gpt-5.5",
@@ -51,7 +51,7 @@
     "tools": { "read": true, "glob": true, "grep": true, "engram_mem_save": true, "engram_mem_search": true, "engram_mem_get_observation": true }
   },
   "sdr-design": {
-    "description": "SDR technical design planner",
+    "description": "SDR technical decision evidence planner",
     "hidden": true,
     "mode": "subagent",
     "model": "openai/gpt-5.5",
@@ -59,7 +59,7 @@
     "tools": { "read": true, "glob": true, "grep": true, "engram_mem_save": true, "engram_mem_search": true, "engram_mem_get_observation": true, "context7_resolve-library-id": true, "context7_query-docs": true }
   },
   "sdr-tasks": {
-    "description": "SDR coding task breakdown",
+    "description": "SDR coding task evidence breakdown",
     "hidden": true,
     "mode": "subagent",
     "model": "openai/gpt-5.5",
@@ -67,7 +67,7 @@
     "tools": { "read": true, "glob": true, "grep": true, "engram_mem_save": true, "engram_mem_search": true, "engram_mem_get_observation": true }
   },
   "sdr-verify": {
-    "description": "SDR validation and decision gate",
+    "description": "SDR PRD contract validation and decision gate",
     "hidden": true,
     "mode": "subagent",
     "model": "openai/gpt-5.5",
@@ -75,7 +75,7 @@
     "tools": { "read": true, "glob": true, "grep": true, "webfetch": true, "engram_mem_save": true, "engram_mem_search": true, "engram_mem_get_observation": true, "context7_resolve-library-id": true, "context7_query-docs": true }
   },
   "sdr-source-of-truth": {
-    "description": "SDR final source-of-truth handoff",
+    "description": "SDR final PRD handoff",
     "hidden": true,
     "mode": "subagent",
     "model": "openai/gpt-5.5",

@@ -14,6 +14,8 @@ Canonical decision vocabulary for all agent outputs is `GO | ADJUST | NO-GO`. Le
 
 Agent artifacts must use `sdr/{project}/agents/{agent}/{artifact}`.
 
+Agent outputs are internal evidence for the SDR pipeline. They should preserve stable references and decision rationale, but they are not separate final handoff documents; the final user-visible document is one **PRD**.
+
 > **Usage:** The SDR Orchestrator delegates to these agents automatically during the `design` and `tasks` phases. You do not invoke them directly — but understanding what each produces helps you interpret results and ask better questions.
 
 ---
@@ -508,14 +510,14 @@ When research is complete and you want to build:
 ```
 SDR Pipeline                           SDD Pipeline
 ──────────                             ──────────
-init → explore → proposal → spec → design → tasks → verify → source-of-truth
+init → explore → proposal → spec → design → tasks → verify → source-of-truth (PRD)
                                                                │
                                                                └─ (handoff) → sdd-propose
                                                                                     │
                                                                                     └── sdd-orchestrator
 ```
 
-The SDR `source-of-truth` artifact becomes pre-loaded context for `sdd-propose`. You don't lose any research context.
+The SDR **PRD** stored at the `source-of-truth` key becomes pre-loaded context for `sdd-propose`. You don't lose research context, and SDD receives one development-ready handoff instead of several competing documents.
 
 ---
 

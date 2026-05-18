@@ -31,12 +31,22 @@ You are the **SDR Orchestrator** — a thin coordinator that maintains conversat
 ## SDR Dependency Graph
 
 ```
-init ──→ explore ──→ proposal ──→ spec ──→ design ──→ tasks ──→ verify ──→ source-of-truth ──→ sdd-propose
+init ──→ explore ──→ proposal ──→ spec ──→ design ──→ tasks ──→ verify ──→ source-of-truth (visible PRD) ──→ sdd-propose
          ↑            ↑           ↑         ↑         ↑          ↑
          └────────────┴───────────┴─────────┴─────────┴──── NO-GO → archive
 ```
 
 **Sequential by default**, but `sdr-ff` fast-forwards through all phases in dependency order.
+
+### Token-Efficient PRD Guardrails
+
+Apply `skills/_shared/sdr-phase-common.md` Section B1 to every phase launch:
+
+- Preserve DAG gates; compression changes artifact shape, not phase order.
+- Treat proposal/spec/design/tasks as internal evidence, not separate final deliverables.
+- Track question classifications and stable IDs across state: `ASM-*`, `REQ-*`, `DEC-*`, `RSK-*`, `TASK-*`.
+- The final user-facing handoff name is exactly `PRD`; `source-of-truth` remains the internal compatibility key.
+- Do not hand off to `sdd-propose` until verify is `GO` and the `PRD` contains required ID coverage.
 
 ---
 
@@ -185,6 +195,8 @@ When delegating to a phase sub-agent, inject a **compact, pre-resolved** launch 
 - [Rule 1 from skill registry matching this phase]
 - [Rule 2 from skill registry matching this phase]
 - ...
+- Apply `skills/_shared/sdr-phase-common.md` Section B1: classify founder prompts, use stable IDs, emit compressed evidence, and keep final visible artifact name `PRD`.
+- Ask founders only `founder-only` and `validation-checkpoint` questions by default. Convert `AI-safe` choices into recommendations with tradeoff and override point.
 
 ## Input Artifacts
 - {artifact key}: {brief description, or "none"}
@@ -194,6 +206,8 @@ When delegating to a phase sub-agent, inject a **compact, pre-resolved** launch 
 Run {phase} for project "{project-name}".
 Return the Result Contract envelope (see your SKILL.md Section D).
 ```
+
+The launch prompt MUST include prior stable IDs already known for the project, plus any unresolved `open_questions`. Do not paste whole prior artifacts when IDs and one-line summaries are enough.
 
 ### Fresh Subagent Rule (MANDATORY)
 
@@ -264,6 +278,13 @@ mem_save(
       tasks: true|false
       verify: true|false
       source_of_truth: true|false
+    evidence:
+      asm_ids: []
+      req_ids: []
+      dec_ids: []
+      rsk_ids: []
+      task_ids: []
+      open_questions: []
     last_phase_status: {success|partial|blocked}
     last_decision: {GO|ADJUST|NO-GO}
     last_updated: {ISO-8601}
@@ -313,6 +334,8 @@ Before evaluating the `decision_gate` from the sub-agent, the orchestrator MUST 
 - Verify it follows the expected structure (check key sections exist)
 - Verify no placeholder text ([TBD], [TODO], "fill in", "appropriate") is present
 - Verify acceptance criteria / success criteria are present where required
+- Verify compressed evidence exists with `new_ids`, `changed_ids`, `carried_forward_ids`, `open_questions`, and `token_budget_status` for phases covered by Section B1.
+- Verify founder-facing questions are classified and only `founder-only` / `validation-checkpoint` items are asked by default.
 - For `sdr-design`, verify `design.md` contains professional technical design sections and, when UI/frontend scope exists, a UI/UX DESIGN.md contract with exact values, visual direction, tokens/components, states, accessibility, responsive behavior, and traceability to proposal/spec.
 - If Stage 1 FAILS: Do NOT evaluate decision_gate. Return ADJUST with feedback: "Artifact structure incomplete — missing X, contains placeholders Y."
 
@@ -542,23 +565,24 @@ Orchestrator:
 
 ---
 
-## Integration with SDD
+## PRD Handoff to SDD
 
-SDR and SDD are sibling frameworks. SDR produces a coding-ready Source of Truth that MAY feed into SDD proposals:
+SDR and SDD are sibling frameworks. SDR produces one coding-ready **PRD** that MAY feed into SDD proposals. The internal artifact key remains `sdr/{project}/source-of-truth` for compatibility:
 
 ```
 SDR Pipeline                    SDD Pipeline
 ──────────                    ──────────
-init → explore → proposal → spec → design → tasks → verify → source-of-truth ──→ sdd-propose
+init → explore → proposal → spec → design → tasks → verify → source-of-truth (PRD) ──→ sdd-propose
                                                                               │
                                                                               └── sdd-orchestrator picks up
 ```
 
 **Handoff Protocol**: When SDR research is complete and the user wants to implement:
-1. Orchestrator ensures `sdr/{project}/source-of-truth` exists and `sdr/{project}/verify-report` is `GO`.
-2. Orchestrator asks: "Convert this Source of Truth into an SDD change?"
-3. If yes, launch `sdd-propose` with the SDR Source of Truth as pre-loaded context.
-4. Never launch `sdd-apply` directly from SDR.
+1. Ensure `sdr/{project}/verify-report` is `GO` and `sdr/{project}/source-of-truth` exists.
+2. Confirm the visible document is named exactly `PRD` and references required `ASM-*`, `REQ-*`, `DEC-*`, `RSK-*`, and `TASK-*` IDs.
+3. Ask: "Convert this PRD into an SDD change?"
+4. If yes, launch `sdd-propose` with the PRD as pre-loaded context.
+5. Never launch `sdd-apply` directly from SDR.
 
 ---
 

@@ -4,7 +4,7 @@ Spec-Driven Research (SDR) is a founder-first pre-development workflow for valid
 
 This project is open source under the [MIT License](./LICENSE). You can use, modify, fork, adapt, and redistribute SDR for your own projects or workflows.
 
-It is inspired by Gentle-AI SDD, but it operates one step earlier: SDR turns founder intent, constraints, market evidence, product requirements, technical feasibility, and implementation slices into a coding-ready **Source of Truth** that can be handed to SDD.
+It is inspired by Gentle-AI SDD, but it operates one step earlier: SDR turns founder intent, constraints, market evidence, product requirements, technical feasibility, and implementation slices into one coding-ready **PRD** that can be handed to SDD.
 
 SDR is **not** a generic business-plan generator. Business, market, financial, and go-to-market research only matter here when they improve the product decision and make the eventual build clearer, safer, and more realistic for a solo founder / One Man Startup.
 
@@ -23,8 +23,10 @@ The workflow starts with **founder interview / intake** because every later rese
 ## Canonical phase chain
 
 ```text
-init -> explore -> proposal -> spec -> design -> tasks -> verify -> source-of-truth -> sdd-propose
+init -> explore -> proposal -> spec -> design -> tasks -> verify -> source-of-truth (PRD) -> sdd-propose
 ```
+
+Intermediate phase artifacts are internal evidence. The founder answers only business/context questions or explicit validation checkpoints; AI-safe technical choices are recommended with tradeoffs and an override point. The final user-visible handoff is named exactly **PRD**.
 
 | Phase | Purpose | Canonical artifact |
 |---|---|---|
@@ -35,14 +37,14 @@ init -> explore -> proposal -> spec -> design -> tasks -> verify -> source-of-tr
 | `design` | Define the technical/research design, feasibility concerns, and implementation approach. | `sdr/{project}/design` |
 | `tasks` | Break the build into coding-ready implementation slices. | `sdr/{project}/tasks` |
 | `verify` | Cross-check consistency, traceability, assumptions, and readiness. | `sdr/{project}/verify-report` |
-| `source-of-truth` | Consolidate verified SDR artifacts into the final handoff package. | `sdr/{project}/source-of-truth` |
-| `sdd-propose` | Start the SDD pipeline using the SDR Source of Truth as preloaded context. | SDD proposal context |
+| `source-of-truth` | Consolidate verified SDR evidence into the final PRD. | `sdr/{project}/source-of-truth` |
+| `sdd-propose` | Start the SDD pipeline using the SDR PRD as preloaded context. | SDD proposal context |
 
 Each phase is gated by the canonical decision vocabulary: `GO | ADJUST | NO-GO`.
 
-## Final deliverable: coding-ready Source of Truth
+## Final deliverable: coding-ready PRD
 
-The SDR `source-of-truth` artifact is the final pre-development contract. It should contain enough validated context for SDD to produce an implementation proposal without re-discovering the business/product fundamentals.
+The SDR `source-of-truth` key stores the final pre-development contract, but the visible document name is exactly **PRD**. It should contain enough validated context for SDD to produce an implementation proposal without re-discovering the business/product fundamentals.
 
 It consolidates:
 
@@ -57,7 +59,7 @@ It consolidates:
 The only valid implementation handoff is:
 
 ```text
-SDR source-of-truth -> sdd-propose
+SDR PRD (stored at source-of-truth key) -> sdd-propose
 ```
 
 SDR does not jump directly to `sdd-apply`.
@@ -84,7 +86,7 @@ openspec/sdr/{project}/
 ├── design.md
 ├── tasks.md
 ├── verify-report.md
-└── source-of-truth.md
+└── source-of-truth.md      # visible document title: PRD
 ```
 
 Local runtime or private assistant state may live outside tracked artifacts; for example, `.gga` is local/ignored when present and should not be treated as the SDR artifact store.
@@ -104,7 +106,7 @@ Local runtime or private assistant state may live outside tracked artifacts; for
 │   ├── sdr-design/SKILL.md            # Technical design phase
 │   ├── sdr-tasks/SKILL.md             # Coding task breakdown phase
 │   ├── sdr-verify/SKILL.md            # Verification phase
-│   ├── sdr-source-of-truth/SKILL.md   # Final SDR handoff phase
+│   ├── sdr-source-of-truth/SKILL.md   # Final SDR PRD handoff phase
 │   ├── agents/                        # Bounded specialist research agents
 │   └── _shared/                       # Shared phase and storage contracts
 ├── research/                           # Local ignored experiments and research dumps
@@ -140,7 +142,7 @@ The only requirement is preserving the license notice when redistributing substa
 This repository currently contains the stabilized SDR documentation and skill definitions for the canonical architecture:
 
 ```text
-init -> explore -> proposal -> spec -> design -> tasks -> verify -> source-of-truth -> sdd-propose
+init -> explore -> proposal -> spec -> design -> tasks -> verify -> source-of-truth (PRD) -> sdd-propose
 ```
 
 The framework is documentation/skill-driven. It is ready for review and iterative use as an SDR workflow definition, but it should be treated as an evolving pre-development methodology rather than a packaged application runtime.

@@ -108,6 +108,8 @@ openspec/sdr/{project}/
 Do NOT merely copy-paste exploration bullet points. Your task is **synthesis** —
 finding the STORY that connects market pain + competitive gap + your capability.
 
+Use Section B1 of `skills/_shared/sdr-phase-common.md`: carry forward relevant `ASM-*` IDs, create `REQ-*` IDs for proposal-level requirements, `DEC-*` IDs for positioning/business decisions, and `RSK-*` IDs for material risks. Summarize deltas instead of restating the full explore artifact.
+
 Use this mental model:
 
 ```
@@ -246,7 +248,7 @@ must be re-evaluated from Phase 2 (not Phase 1).
   - type: `architecture`
   - topic_key: `sdr/{project}/proposal`
   - content: Include the full Lean Canvas, gap analysis, UVP formulation, moat analysis,
-    decision gate verdict, and result contract. Use the structured format below.
+    decision gate verdict, result contract, and compressed evidence envelope. Use the structured format below.
 
 **IF mode is `openspec` or `hybrid`:** Write `openspec/sdr/{project}/proposal.md`.
 
@@ -292,6 +294,7 @@ Return to the orchestrator:
 - **Moat analysis must distinguish between "we have it now" and "we can build it."** Only existing or near-term buildable assets count for a GO verdict.
 - **If the decision gate yields NO-GO, do NOT sugarcoat it.** A crisp NO-GO saves weeks of wasted validation. Explain WHY and recommend whether to pivot, wait, or archive.
 - **Size budget**: Proposal artifact MUST be under 900 words. Use tables and bullet points over prose. The Lean Canvas is structured, not narrative.
+- **Traceability**: Proposal artifact MUST include the Section B1 evidence envelope. Use `REQ-*` for build-relevant requirements, `DEC-*` for proposal decisions, `RSK-*` for risks, and carry forward supporting `ASM-*` IDs.
 - **Return envelope**: Include the decision gate summary, one-page summary, and next step. The orchestrator needs the verdict, not the full canvas.
 - **Never proceed to Phase 3 on a NO-GO.** The proposal phase exists precisely to prevent premature execution.
 

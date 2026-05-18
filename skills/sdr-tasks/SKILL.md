@@ -13,7 +13,7 @@ metadata:
 
 ## Purpose
 
-You are responsible for **IMPLEMENTATION TASK BREAKDOWN**. You take the founder intake, proposal, spec, and design, then produce vertical coding slices that can feed the final SDR Source of Truth and later `sdd-propose`.
+You are responsible for **IMPLEMENTATION TASK BREAKDOWN**. You take the founder intake, proposal, spec, and design, then produce vertical coding slices that feed the final visible `PRD` (internal `source-of-truth`) and later `sdd-propose`.
 
 GTM, finance, pricing, SEO/content calendars, CRM flows, and launch operations are excluded from this phase unless they directly create product behavior that must be implemented.
 
@@ -44,6 +44,8 @@ Extract:
 - founder constraints: solo capacity, budget, timeline, risk tolerance, launch quality
 - dependencies, external integrations, and risk mitigations
 
+Apply Section B1 of `skills/_shared/sdr-phase-common.md`: carry forward relevant `ASM-*`, `REQ-*`, `DEC-*`, and `RSK-*` IDs; create stable `TASK-*` IDs for implementation slices.
+
 ### Step 2: Create Vertical Coding Slices
 
 Every task must deliver a working, testable product increment end-to-end and map back to design decisions/components where applicable.
@@ -73,7 +75,7 @@ For UI products, include explicit slices for component states, accessibility beh
 
 | Task ID | Vertical Slice | Size | Dependencies | Mapped Requirements | Design Decisions / Components | Acceptance Criteria | Test Strategy | SDD Handoff Notes |
 |---------|----------------|------|--------------|---------------------|-------------------------------|--------------------|---------------|-------------------|
-| T-01 | {End-to-end user outcome} | S/M | {none/T-xx} | {REQ-xx} | {DEC-xx / component / token} | {Given/When/Then summary} | {unit/integration/e2e/a11y} | {modules likely affected} |
+| TASK-001 | {End-to-end user outcome} | S/M | {none/TASK-xxx} | {REQ-xxx} | {DEC-xxx / component / token} | {Given/When/Then summary} | {unit/integration/e2e/a11y} | {modules likely affected} |
 
 ## 2. Dependency Order
 
@@ -114,6 +116,7 @@ GTM, finance, pricing, SEO/content calendars, CRM flows, and launch operations a
 - artifact: `tasks`
 - topic_key: `sdr/{project}/tasks`
 - type: `architecture`
+- include the Section B1 compressed evidence envelope with new/changed `TASK-*` IDs and carried-forward `REQ-*`, `DEC-*`, and `RSK-*` IDs.
 
 ### Step 5: Return Envelope
 
@@ -124,6 +127,9 @@ Return the shared result envelope with `next_recommended: verify`.
 - ALWAYS produce implementation-ready vertical slices, not GTM or finance tasks.
 - ALWAYS map tasks to requirements and acceptance criteria.
 - ALWAYS map UI tasks to design decisions/components/tokens from `design.md` when UI exists.
+- Use stable `TASK-*` IDs, not ad hoc task labels, and map each task to at least one `REQ-*` and relevant `DEC-*`/`RSK-*` IDs.
+- Treat tasks as internal evidence for the final visible `PRD`; do not present them as a separate final deliverable.
+- Emit the compressed evidence envelope from `skills/_shared/sdr-phase-common.md`.
 - ALWAYS include UI state, accessibility, and responsive tasks when the design includes frontend scope.
 - ALWAYS include dependency order, test strategy, and SDD handoff notes.
 - Decision gate is mandatory; if tasks are not coding-ready, return `ADJUST`.

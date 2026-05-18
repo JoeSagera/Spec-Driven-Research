@@ -30,7 +30,58 @@ Use the artifact store mode injected by the orchestrator.
 
 Canonical phase chain:
 
-`init -> explore -> proposal -> spec -> design -> tasks -> verify -> source-of-truth -> sdd-propose`
+`init -> explore -> proposal -> spec -> design -> tasks -> verify -> source-of-truth (final visible artifact: PRD) -> sdd-propose`
+
+## Section B1 — Token-Efficient PRD Contract
+
+SDR phases produce compressed internal evidence. The only user-facing final handoff document is exactly **PRD**. Keep `source-of-truth` in internal paths/topic keys only when needed for compatibility.
+
+### Question Classification
+
+`QuestionClassification = founder-only | AI-safe | mixed | validation-checkpoint`
+
+Classify every founder-facing prompt before asking it:
+
+| Classification | Ask founder by default? | Rule |
+|---|---:|---|
+| `founder-only` | Yes | Business context, constraints, taste, goals, or facts only the founder can know. |
+| `AI-safe` | No | Technical or workflow choice the agent can recommend with tradeoffs and an override point. |
+| `mixed` | Only missing founder part | Split business context from technical execution; ask only what cannot be inferred. |
+| `validation-checkpoint` | Yes | Explicit approval for high-impact assumptions, scope, risk, or final PRD handoff. |
+
+Founder-question budget: ask the minimum viable set needed to avoid fabricating founder context. Prefer AI recommendations for `AI-safe` items and batch founder questions when possible.
+
+### Stable IDs
+
+Use stable IDs instead of repeating full prior content:
+
+| Prefix | Meaning |
+|---|---|
+| `ASM-*` | Assumption or founder context |
+| `REQ-*` | Requirement or acceptance criterion |
+| `DEC-*` | Decision, recommendation, or rejected alternative |
+| `RSK-*` | Risk, mitigation, or open concern |
+| `TASK-*` | Implementation task or work slice |
+
+IDs are append-only within a project. If an item changes, keep the ID and report it in `changed_ids`; create a new ID only for a materially new item.
+
+### Compressed Evidence Envelope
+
+Each phase artifact SHOULD include this compact evidence block:
+
+```yaml
+evidence:
+  new_ids: []              # IDs introduced by this phase
+  changed_ids: []          # Existing IDs materially changed
+  carried_forward_ids: []  # Prior IDs still relevant; no restatement needed
+  open_questions: []       # Founder-only or validation-checkpoint items still unresolved
+  token_budget_status: ok | watch | exceeded
+```
+
+Evidence rules:
+- Summarize deltas and ID references; do not restate complete prior artifacts.
+- AI-safe decisions must include one recommendation, at least one tradeoff, and one founder override point.
+- The PRD must reference the final assumptions, requirements, decisions, risks, and tasks by stable ID.
 
 ## Section C — Persistence
 
@@ -46,7 +97,7 @@ Canonical Engram topic keys:
 | UI design contract (optional split) | `sdr/{project}/ui-design` |
 | tasks | `sdr/{project}/tasks` |
 | verify report | `sdr/{project}/verify-report` |
-| source of truth | `sdr/{project}/source-of-truth` |
+| PRD (internal source-of-truth key) | `sdr/{project}/source-of-truth` |
 | agent artifact | `sdr/{project}/agents/{agent}/{artifact}` |
 
 Filesystem mirror for `openspec` and `hybrid` mode:
@@ -61,7 +112,7 @@ openspec/sdr/{project}/
 ├── ui-design.md           # optional split only when useful for large UI systems
 ├── tasks.md
 ├── verify-report.md
-└── source-of-truth.md
+└── source-of-truth.md      # final visible artifact title: PRD
 ```
 
 Tech-stack persistence:
@@ -94,8 +145,8 @@ Decision vocabulary is always `GO | ADJUST | NO-GO`. Use `ADJUST` for conditiona
 
 ## Section E — SDR Boundary
 
-SDR produces a coding-ready Source of Truth for a solo founder using AI workflow systems. It does not replace SDD implementation. The final handoff is always:
+SDR produces one coding-ready **PRD** for a solo founder using AI workflow systems. Intermediate phase artifacts are internal evidence, not separate final deliverables. SDR does not replace SDD implementation. The final handoff is always:
 
-`SDR source-of-truth -> sdd-propose`
+`SDR PRD (source-of-truth key) -> sdd-propose`
 
 Never hand off directly to `sdd-apply`.

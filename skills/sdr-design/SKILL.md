@@ -100,6 +100,16 @@ openspec/sdr/{project}/
 
 **Tech Stack Rule**: In Engram mode, persist tech-stack decisions inside `sdr/{project}/design` or `sdr/{project}/tech-stack`. Only write `tech-stack.md` in openspec/hybrid mode.
 
+### Step 3b: Stable Decision Evidence
+
+Apply Section B1 of `skills/_shared/sdr-phase-common.md`:
+
+- Carry forward relevant `ASM-*`, `REQ-*`, and `RSK-*` IDs from prior phases.
+- Assign `DEC-*` IDs to architecture, tech-stack, UI, security, cost, rollout, and rejected-alternative decisions.
+- For every `AI-safe` technical decision, include: **recommendation**, **tradeoff**, and **founder override point**.
+- Use `RSK-*` IDs for material feasibility, capability, compliance, cost, and integration risks.
+- Persist the compressed evidence envelope; do not restate whole proposal/spec sections.
+
 #### Design Document Format
 
 ```markdown
@@ -239,20 +249,20 @@ Before finalizing a UI/frontend design, verify these principles. For backend-onl
 
 ### Recommended Stack
 
-| Layer | Choice | Rationale | Maturity |
-|-------|--------|-----------|----------|
-| Frontend | {Tech} | {Why} | {Level} |
-| Backend | {Tech} | {Why} | {Level} |
-| Database | {Tech} | {Why} | {Level} |
-| Cache | {Tech} | {Why} | {Level} |
-| Queue | {Tech} | {Why} | {Level} |
-| Infra | {Tech} | {Why} | {Level} |
+| DEC ID | Layer | Recommendation | Tradeoff | Founder Override Point | Maturity |
+|--------|-------|----------------|----------|------------------------|----------|
+| DEC-### | Frontend | {Tech} | {What this optimizes vs sacrifices} | {When founder may choose differently} | {Level} |
+| DEC-### | Backend | {Tech} | {What this optimizes vs sacrifices} | {When founder may choose differently} | {Level} |
+| DEC-### | Database | {Tech} | {What this optimizes vs sacrifices} | {When founder may choose differently} | {Level} |
+| DEC-### | Cache | {Tech} | {What this optimizes vs sacrifices} | {When founder may choose differently} | {Level} |
+| DEC-### | Queue | {Tech} | {What this optimizes vs sacrifices} | {When founder may choose differently} | {Level} |
+| DEC-### | Infra | {Tech} | {What this optimizes vs sacrifices} | {When founder may choose differently} | {Level} |
 
 ### Alternatives Considered
 
-| Alternative | Why Rejected | Risk |
-|-------------|--------------|------|
-| {Tech} | {Reason} | {Risk} |
+| DEC ID | Alternative | Why Rejected | Tradeoff Accepted | Risk |
+|--------|-------------|--------------|------------------|------|
+| DEC-### | {Tech} | {Reason} | {Tradeoff} | {Risk} |
 
 ### Team Capability Assessment
 
@@ -425,7 +435,11 @@ Persist tech-stack decisions according to the active artifact store mode:
 
 ### Decision Recommendation
 
-{Clear recommendation using GO, ADJUST, or NO-GO. List required adjustments if verdict is ADJUST.}
+{Clear recommendation using GO, ADJUST, or NO-GO. For AI-safe decisions, include the recommendation, tradeoff, and founder override point. List required adjustments if verdict is ADJUST.}
+
+## Compressed Evidence
+
+Include the Section B1 evidence envelope with `DEC-*`, `RSK-*`, and carried-forward `ASM-*` / `REQ-*` IDs.
 
 ## Open Questions
 
@@ -477,6 +491,8 @@ Ready for tasks (sdr-tasks).
 
 - Brownfield only: ALWAYS read the actual codebase before designing — never guess
 - Every decision MUST have a rationale (the "why")
+- Every `AI-safe` technical decision MUST include one recommendation, at least one tradeoff, and one founder override point.
+- Every architecture, tech-stack, UI, security, cost, and rollout decision MUST have a stable `DEC-*` ID and appear in the compressed evidence envelope.
 - Every UI decision MUST trace to a spec requirement or proposal goal when UI/frontend scope exists.
 - Brownfield only: include concrete existing file paths, not abstract descriptions
 - Brownfield only: use the project's ACTUAL patterns and conventions, not generic best practices

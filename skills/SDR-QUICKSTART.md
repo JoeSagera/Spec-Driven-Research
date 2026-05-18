@@ -6,9 +6,11 @@ Get from idea to validated research in minutes with the Spec-Driven Research (SD
 
 ## What is SDR?
 
-SDR is a structured pipeline for running multi-agent research. Instead of one generic chat, you delegate to specialized agents — Market Intelligence, Competitive Analysis, Technical Viability, and more — each producing standardized outputs that feed into the next phase.
+SDR is a structured pipeline for founder+AI product discovery. Instead of one generic chat, specialized phases produce compressed internal evidence that feeds one final development-ready **PRD**.
 
-Think of it as CI/CD for founder research: **init → explore → proposal → spec → design → tasks → verify → source-of-truth → sdd-propose**, with a decision gate after every phase.
+Think of it as CI/CD for founder research: **init → explore → proposal → spec → design → tasks → verify → source-of-truth (PRD) → sdd-propose**, with a decision gate after every phase.
+
+The founder answers only business/context questions or explicit validation checkpoints. AI-safe technical decisions are recommended with tradeoffs and an override point instead of being pushed back as raw choices.
 
 ---
 
@@ -65,7 +67,7 @@ Runs the full SDR chain sequentially. Stops automatically if any phase returns `
 |---------|---------|-----------|----------|
 | `/sdr-new <name>` | Start fresh; runs init + explore + proposal | Interactive mode asks GO/ADJUST/NO-GO | New ideas, unknown domains |
 | `/sdr-continue [name]` | Resume from last completed phase | Nothing; seamless continuation | Multi-session research |
-| `/sdr-ff <name>` | Run full pipeline: init → explore → proposal → spec → design → tasks → verify → source-of-truth | ADJUST, NO-GO, errors | Well-understood domains, CI-like runs |
+| `/sdr-ff <name>` | Run full pipeline: init → explore → proposal → spec → design → tasks → verify → source-of-truth (PRD) | ADJUST, NO-GO, errors | Well-understood domains, CI-like runs |
 
 > **Pro tip:** You can switch from Interactive to Automatic mid-project, but the orchestrator will ask you to confirm.
 
@@ -74,7 +76,7 @@ Runs the full SDR chain sequentially. Stops automatically if any phase returns `
 ## What Happens in Each Phase
 
 ```
-init ──→ explore ──→ proposal ──→ spec ──→ design ──→ tasks ──→ verify ──→ source-of-truth ──→ sdd-propose
+init ──→ explore ──→ proposal ──→ spec ──→ design ──→ tasks ──→ verify ──→ source-of-truth (PRD) ──→ sdd-propose
 ```
 
 | Phase | What the agent does | What you get | Typical Duration |
@@ -86,9 +88,9 @@ init ──→ explore ──→ proposal ──→ spec ──→ design ──
 | **design** | Produces technical architecture and, for UI products, a professional UI/UX DESIGN.md contract | Technical `design.md` with architecture, stack, risks, and UI handoff when applicable | 1-2 min |
 | **tasks** | Breaks product requirements into implementation-ready vertical slices | Coding task list with dependencies and tests | 1 min |
 | **verify** | Cross-checks consistency, validates assumptions | Verification report + final verdict | 1-2 min |
-| **source-of-truth** | Consolidates verified SDR artifacts for SDD | Coding-ready Source of Truth | 1 min |
+| **source-of-truth** | Consolidates verified SDR evidence for SDD | Coding-ready PRD | 1 min |
 
-Each phase saves artifacts to Engram. Nothing is lost.
+Each phase saves artifacts to Engram. Phase artifacts are internal evidence; the final visible handoff is one **PRD**.
 
 ---
 
@@ -97,6 +99,8 @@ Each phase saves artifacts to Engram. Nothing is lost.
 ### Engram Topic Keys (deterministic)
 
 Init is saved as `sdr-init/{project}`. Later SDR phase artifacts are saved under `sdr/{project-name}/{phase}`:
+
+The final PRD is stored at the compatibility key `sdr/{project}/source-of-truth`; call the visible document **PRD**, not Source of Truth.
 
 | Phase | Topic Key | Example |
 |-------|-----------|---------|
@@ -107,7 +111,7 @@ Init is saved as `sdr-init/{project}`. Later SDR phase artifacts are saved under
 | design | `sdr/{project}/design` | `sdr/ai-contract-review/design` |
 | tasks | `sdr/{project}/tasks` | `sdr/ai-contract-review/tasks` |
 | verify report | `sdr/{project}/verify-report` | `sdr/ai-contract-review/verify-report` |
-| source of truth | `sdr/{project}/source-of-truth` | `sdr/ai-contract-review/source-of-truth` |
+| PRD (source-of-truth key) | `sdr/{project}/source-of-truth` | `sdr/ai-contract-review/source-of-truth` |
 | state | `sdr/{project}/state` | `sdr/ai-contract-review/state` |
 | config | `sdr/{project}/config` | `sdr/ai-contract-review/config` |
 
@@ -203,8 +207,8 @@ You want to build **AI-powered contract review for mid-market legal teams**.
 > `verify-report` cross-check: proposal, spec, design, and tasks are coherent; all MUST requirements trace to design decisions and implementation tasks.  
 > Decision gate: **GO**
 
-**8. Source-of-truth phase completes**
-> Final `source-of-truth` consolidates verified SDR artifacts into a coding-ready package for `sdd-propose`.  
+**8. PRD handoff completes**
+> Final `PRD` consolidates verified SDR evidence into a coding-ready package for `sdd-propose`.
 > Decision gate: **GO** → Research complete.
 
 ### What you now have
@@ -217,7 +221,7 @@ sdr/ai-contract-review/spec      → Requirements & acceptance criteria
 sdr/ai-contract-review/design    → Technical architecture + UI/UX DESIGN.md contract when applicable
 sdr/ai-contract-review/tasks           → Coding task breakdown with dependencies
 sdr/ai-contract-review/verify-report   → Consistency check & final verdict
-sdr/ai-contract-review/source-of-truth → Coding-ready handoff package for SDD
+sdr/ai-contract-review/source-of-truth → PRD: coding-ready handoff package for SDD
 sdr/ai-contract-review/state           → Full project state & decisions
 ```
 
@@ -228,7 +232,7 @@ When you're ready to build:
 Convert this research into an SDD change?
 ```
 
-The orchestrator hands the SDR `source-of-truth` artifact to the SDD pipeline as pre-loaded context for `sdd-propose`. SDR never jumps directly to `sdd-apply`.
+The orchestrator hands the SDR **PRD** stored at `source-of-truth` to the SDD pipeline as pre-loaded context for `sdd-propose`. SDR never jumps directly to `sdd-apply`.
 
 ---
 

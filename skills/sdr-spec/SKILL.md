@@ -4,7 +4,7 @@ description: >
   Product Requirements + UX Research Agent for the Spec-Driven Research (SDR) Framework.
   Phase 3: Product Specification.
   Trigger: When the orchestrator launches you to translate a business proposal into a
-  technical product specification (PRD, user stories, acceptance criteria, roadmap).
+  technical product specification evidence (requirements, user stories, acceptance criteria, roadmap).
 license: MIT
 metadata:
   author: JoeSagera
@@ -13,7 +13,7 @@ metadata:
 
 ## Purpose
 
-You are a sub-agent responsible for **PRODUCT SPECIFICATION**. You take a validated business proposal from Phase 2 (`sdr/{project}/proposal`) and produce a comprehensive, buildable Product Requirements Document (PRD) that serves as the single source of truth for design, engineering, and QA.
+You are a sub-agent responsible for **PRODUCT SPECIFICATION EVIDENCE**. You take a validated business proposal from Phase 2 (`sdr/{project}/proposal`) and produce concise, buildable requirement evidence that later feeds the single final `PRD`.
 
 Your output bridges the gap between "what the business wants" and "what the team will build."
 
@@ -28,8 +28,8 @@ From the orchestrator:
 
 > Follow **Section B** (retrieval) and **Section C** (persistence) from `skills/_shared/sdr-phase-common.md`.
 
-- **engram**: Read `sdr/{project}/proposal` (required). Save the complete PRD as `sdr/{project}/spec`.
-- **openspec**: Read and follow `skills/_shared/openspec-convention.md`. Write PRD to `openspec/sdr/{project}/spec.md`.
+- **engram**: Read `sdr/{project}/proposal` (required). Save product specification evidence as `sdr/{project}/spec`.
+- **openspec**: Read and follow `skills/_shared/openspec-convention.md`. Write specification evidence to `openspec/sdr/{project}/spec.md`.
 - **hybrid**: Follow BOTH conventions — persist to Engram AND write domain files to filesystem.
 - **none**: Return result only. Never create or modify project files.
 
@@ -62,6 +62,8 @@ Extract and categorize from the proposal and founder intake:
 | Constraints | Budget, compliance, technical limits, team capacity |
 | Founder Fit | launch quality, risk tolerance, AI workflow expectations |
 
+Apply Section B1 of `skills/_shared/sdr-phase-common.md`: carry forward relevant `ASM-*`, `DEC-*`, and `RSK-*` IDs; create or update `REQ-*` IDs for every requirement, user story cluster, acceptance criterion, boundary, and success metric that may appear in the final `PRD`.
+
 ### Step 3b: Reframe Vague Requirements into Concrete Success Criteria
 
 For EVERY requirement from the proposal that is qualitative or vague, reframe it into testable, measurable conditions BEFORE writing user stories.
@@ -78,12 +80,12 @@ REFRAMED SUCCESS CRITERIA:
 
 **Rule**: If you cannot write at least one concrete success criterion with a numeric threshold for a requirement, flag it as [NEEDS CLARIFICATION] and escalate to the orchestrator. Do NOT write user stories for vague requirements.
 
-### Step 4: Write the Product Specification (PRD)
+### Step 4: Write Product Specification Evidence
 
-Create a complete, self-contained PRD. Structure:
+Create compact product specification evidence for the final `PRD`. Structure:
 
 ```markdown
-# Product Requirements Document — {Project Name}
+# Product Specification Evidence — {Project Name}
 
 ## 1. Executive Summary
 - One-paragraph elevator pitch of WHAT this product/feature does and FOR WHOM.
@@ -254,6 +256,7 @@ Follow **Section C** from `skills/_shared/sdr-phase-common.md`.
 - artifact: `spec`
 - topic_key: `sdr/{project}/spec`
 - type: `architecture`
+- include the Section B1 compressed evidence envelope with `REQ-*` coverage and carried-forward IDs.
 
 ### Step 6: Return Summary
 
@@ -264,7 +267,7 @@ Return to the orchestrator:
 
 **Project**: {project}
 
-### PRD Sections
+### Spec Evidence Sections
 | Section | Status | Details |
 |---------|--------|---------|
 | User Personas | {count} personas defined | {names} |
@@ -290,13 +293,16 @@ Ready for Phase 4 (sdr-design). If design already exists, ready for Phase 5 (sdr
 - ALWAYS apply MoSCoW prioritization — every feature MUST have a priority.
 - ALWAYS define Anti-Scope — explicitly list what is NOT included.
 - ALWAYS include a Buildability Decision Gate before declaring the spec complete.
-- NEVER write implementation details in the PRD — this is WHAT and WHY, not HOW.
+- NEVER write implementation details in the spec evidence — this is WHAT and WHY, not HOW.
 - NEVER skip the risk register — unidentified risks become surprises in development.
+- Treat this phase artifact as internal evidence for the final visible `PRD`, not as a separate final deliverable.
+- Every requirement, story cluster, acceptance criterion group, boundary, and success metric MUST have a stable `REQ-*` ID.
+- Use the compressed evidence envelope: `new_ids`, `changed_ids`, `carried_forward_ids`, `open_questions`, `token_budget_status`.
 - Every user story MUST have at least ONE acceptance criterion scenario.
 - Include both happy path AND edge case scenarios for every story.
 - Keep scenarios TESTABLE — someone should be able to write an automated test from each one.
 - Apply any `rules.specs` from `openspec/config.yaml` when in openspec/hybrid mode.
-- **Size budget**: PRD artifact MUST be under 800 words for the summary envelope. Full PRD can be longer, but the Engram artifact should be concise. Prefer tables over narrative.
+- **Size budget**: Spec evidence artifact MUST be under 800 words for the summary envelope. The final `PRD` is produced later by `sdr-source-of-truth`. Prefer tables over narrative.
 - Return envelope per **Section D** from `skills/_shared/sdr-phase-common.md`.
 
 ## RFC 2119 Keywords Quick Reference

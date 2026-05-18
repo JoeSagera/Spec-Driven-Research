@@ -65,11 +65,17 @@ Capture or infer:
 - desired launch quality and success definition
 - existing assets, technical preferences, and AI workflow expectations
 
-Then clarify:
-- **Hypothesis**: What specific claim are we validating? (e.g., "Developers will pay for AI-powered test generation")
-- **Market**: Who is the buyer? Who is the user? B2B vs B2C?
-- **Geography**: Global, regional, or localized?
-- **Time horizon**: Is this a now-market or a 3-year bet?
+Then classify any potential founder prompt using Section B1 of `skills/_shared/sdr-phase-common.md`:
+- `founder-only`: business context, founder constraints, target segment, taste, or facts only the founder knows.
+- `validation-checkpoint`: approval for high-impact assumptions, scope, risk, or final direction.
+- `mixed`: split and ask only the founder-owned part.
+- `AI-safe`: do not ask by default; recommend with tradeoff and override point.
+
+Clarify only founder-owned/checkpoint gaps such as:
+- **Hypothesis** (`ASM-*`): What claim should this research validate?
+- **Market** (`ASM-*`): Who does the founder believe is buyer vs. user?
+- **Geography** (`ASM-*`): Which region is strategically intended?
+- **Time horizon** (`ASM-*`): Is this a now-market or a 3-year bet?
 
 If the hypothesis is too vague, mark assumptions and continue in automatic mode unless a critical unknown makes research impossible. In interactive mode, ask only the highest-leverage clarifying questions before research.
 
@@ -79,15 +85,15 @@ If the hypothesis is too vague, mark assumptions and continue in automatic mode 
 
 ```
 ASSUMPTIONS I'M MAKING:
-1. [Business model assumption, e.g. "This is a B2B SaaS, not B2C"]
-2. [Buyer assumption, e.g. "The target buyer is a CTO with budget authority, not a developer"]
-3. [Pricing assumption, e.g. "Pricing is subscription-based (not usage-based)"]
-4. [Market assumption, e.g. "The market is US-first, English-speaking"]
-5. [Tech assumption, e.g. "The solution requires cloud infrastructure"]
+1. ASM-001 [Business model assumption, e.g. "This is a B2B SaaS, not B2C"]
+2. ASM-002 [Buyer assumption, e.g. "The target buyer is a CTO with budget authority, not a developer"]
+3. ASM-003 [Pricing assumption, e.g. "Pricing is subscription-based (not usage-based)"]
+4. ASM-004 [Market assumption, e.g. "The market is US-first, English-speaking"]
+5. ASM-005 [Tech/workflow assumption, e.g. "The solution requires cloud infrastructure"]
 → In automatic mode, proceed with these unless a critical unknown blocks research. In interactive mode, ask the founder to correct the highest-risk assumptions.
 ```
 
-List at least 3 assumptions. Flag any that you cannot justify with existing project context or prior exploration. Unjustified assumptions must be marked [UNVERIFIED].
+List at least 3 assumptions with stable `ASM-*` IDs. Flag any that you cannot justify with existing project context or prior exploration as [UNVERIFIED]. Include `ASM-*` IDs in the compressed evidence envelope.
 
 ### Step 3: Source Citation Hierarchy
 
@@ -204,6 +210,7 @@ Follow **Section C** from `skills/_shared/sdr-phase-common.md`.
 - artifact: `explore`
 - topic_key: `sdr/{project}/explore`
 - type: `discovery`
+- include the Section B1 compressed evidence envelope with `ASM-*` assumptions, risks as `RSK-*` when material, and unresolved founder-only/checkpoint questions.
 
 **This step is MANDATORY — do NOT skip it.**
 
@@ -314,6 +321,8 @@ Example:
 - In openspec/hybrid mode, write only under `openspec/sdr/{project}/`. In Engram mode, do not create files.
 - DO NOT write code, build prototypes, or design screens
 - ALWAYS cite sources — industry reports, web pages, forum threads. Unsourced claims are guesses.
+- Ask only `founder-only` or `validation-checkpoint` questions by default; do not ask AI-safe research methodology or technical execution choices.
+- Emit stable `ASM-*` IDs for assumptions/founder context and `RSK-*` IDs for material risks.
 - Keep analysis ACTIONABLE, not academic. The orchestrator needs a GO/NO-GO signal, not a dissertation.
 - If you cannot find enough data, say so clearly and flag the missing data points
 - If the hypothesis is unfalsifiable, STOP and explain what makes it untestable
